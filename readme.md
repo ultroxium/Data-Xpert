@@ -16,8 +16,8 @@ To set up DataXpert locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/dataxpert.git
-   cd dataxpert
+   git clone https://github.com/ultroxium/Data-Xpert.git
+   cd Data-Xpert
    ```
 
 2. Navigate to the backend directory and install dependencies:
