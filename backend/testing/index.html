@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Notification Demo</title>
+</head>
+
+<body>
+    <h1>WebSocket Notification Demo</h1>
+    <div id="notifications">
+        <!-- Notifications will be displayed here -->
+    </div>
+
+    <script>
+        // This should be dynamically set based on the logged-in user
+        const userId = 8;
+
+        // Create a new WebSocket connection using the userId
+        const socket = new WebSocket(`ws://localhost:8000/notifications/ws/${userId}`);
+
+        console.log(socket);
+
+        // Handle incoming messages from the WebSocket
+        socket.onmessage = function (event) {
+            const notification = event.data;
+            console.log("New notification:", notification);
+
+            // Display the notification in the UI
+            const notificationsDiv = document.getElementById('notifications');
+            const notificationElement = document.createElement('div');
+            notificationElement.textContent = notification;
+            notificationsDiv.appendChild(notificationElement);
+        };
+
+        // Handle WebSocket closure
+        socket.onclose = function (event) {
+            console.log("WebSocket closed:", event);
+        };
+
+        // Handle WebSocket errors
+        socket.onerror = function (error) {
+            console.error("WebSocket error:", error);
+        };
+    </script>
+</body>
+
+</html>

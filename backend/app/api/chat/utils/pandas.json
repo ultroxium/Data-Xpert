@@ -1,0 +1,131 @@
+{
+    "Data Structures": {
+      "Series": "1D labeled array",
+      "DataFrame": "2D labeled array"
+    },
+    "File I/O": {
+      "read_csv": "Read a CSV file into a DataFrame",
+      "to_csv": "Write DataFrame to a CSV file"
+    },
+    "Data Inspection": {
+      "head": "Return first n rows",
+      "tail": "Return last n rows",
+      "info": "Concise summary of DataFrame",
+      "describe": "Summary statistics",
+      "shape": "Number of rows and columns",
+      "columns": "Return column labels",
+      "dtypes": "Data types of columns",
+      "memory_usage": "Memory usage of DataFrame"
+    },
+    "Data Selection & Indexing": {
+      "loc": "Label-based selection",
+      "iloc": "Position-based selection",
+      "at": "Access single value by label",
+      "iat": "Access single value by position",
+      "set_index": "Set a column as the index",
+      "reset_index": "Reset index to default integer",
+      "reindex": "Conform DataFrame to new index"
+    },
+    "Filtering and Subsetting": {
+      "Boolean indexing": "Filter rows using condition",
+      "query": "Query DataFrame using a string expression",
+      "isin": "Check if values are in a list",
+      "filter": "Subset columns or rows"
+    },
+    "Handling Missing Data": {
+      "isnull": "Detect missing values",
+      "notnull": "Detect non-missing values",
+      "fillna": "Fill missing values",
+      "dropna": "Drop rows or columns with missing values",
+      "interpolate": "Fill missing values with interpolation"
+    },
+    "Data Cleaning & Transformation": {
+      "replace": "Replace values",
+      "apply": "Apply a function along axis",
+      "map": "Map values of Series",
+      "applymap": "Apply a function element-wise",
+      "astype": "Cast to a specified data type",
+      "rename": "Rename columns or rows",
+      "duplicated": "Find duplicate rows",
+      "drop_duplicates": "Drop duplicate rows"
+    },
+    "Column and Row Operations": {
+      "assign": "Assign new columns",
+      "insert": "Insert a new column",
+      "drop": "Drop rows or columns",
+      "append": "Append rows of another DataFrame",
+      "concat": "Concatenate DataFrames",
+      "merge": "Merge DataFrames",
+      "join": "Join DataFrames on index"
+    },
+    "Aggregation & Grouping": {
+      "groupby": "Group DataFrame using mapper",
+      "agg": "Aggregate using one or more operations",
+      "count": "Count non-NA cells",
+      "sum": "Sum values",
+      "mean": "Mean of values",
+      "median": "Median of values",
+      "min": "Minimum value",
+      "max": "Maximum value",
+      "std": "Standard deviation",
+      "var": "Variance"
+    },
+    "Reshaping Data": {
+      "melt": "Unpivot DataFrame",
+      "pivot": "Reshape by pivoting",
+      "pivot_table": "Create a spreadsheet-style pivot table",
+      "stack": "Stack the columns",
+      "unstack": "Unstack the columns",
+      "transpose": "Transpose rows and columns"
+    },
+    "Sorting": {
+      "sort_values": "Sort by values",
+      "sort_index": "Sort by index"
+    },
+    "String Operations": {
+      "str.contains": "Check if pattern is contained in each string",
+      "str.replace": "Replace occurrences of pattern",
+      "str.extract": "Extract a substring",
+      "str.split": "Split strings",
+      "str.strip": "Remove leading and trailing spaces"
+    },
+    "Mathematical Operations": {
+      "add": "Addition",
+      "sub": "Subtraction",
+      "mul": "Multiplication",
+      "div": "Division",
+      "pow": "Exponentiation",
+      "abs": "Absolute value",
+      "round": "Round to a specified number of decimals",
+      "cumsum": "Cumulative sum",
+      "cumprod": "Cumulative product",
+      "cummin": "Cumulative minimum",
+      "cummax": "Cumulative maximum"
+    },
+    "Visualization": {
+      "plot": "Basic plotting",
+      "hist": "Histogram",
+      "boxplot": "Boxplot"
+    },
+    "Windowing Operations": {
+      "rolling": "Rolling window calculations",
+      "expanding": "Expanding window calculations",
+      "ewm": "Exponentially weighted window"
+    },
+    "Categorical Data": {
+      "astype('category')": "Convert column to category data type",
+      "cat.codes": "Category codes",
+      "cat.categories": "Category labels"
+    },
+    "Index Manipulation": {
+      "set_index": "Set a column as the index",
+      "reset_index": "Reset index to default integer",
+      "reindex": "Reindex to match a new index",
+      "sort_index": "Sort by index",
+      "multiindex": "Create or manipulate multi-level index"
+    },
+    "Exporting Data": {
+      "to_csv": "Write DataFrame to a CSV file"
+    }
+  }
+  

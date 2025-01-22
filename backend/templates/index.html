@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Chat Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        #chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow-y: auto;
+        }
+        #message {
+            display: flex;
+        }
+        #message input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #message button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-left: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        #message button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat"></div>
+    <div id="message">
+        <input type="text" id="input" placeholder="Type a message...">
+        <button id="send">Send</button>
+    </div>
+
+    <script>
+        // Change these values to match your WebSocket server URL and chat room
+        const userId = 3; // Replace with the actual user ID
+        const chatRoom = "general"; // Replace with the actual chat room
+
+        const ws = new WebSocket(`ws://bookish-rotary-phone-5jq56j5jrq6c6x6-8000.app.github.dev/chat/ws/${userId}/${chatRoom}`);
+
+        ws.onopen = () => {
+            console.log("Connected to the WebSocket server.");
+        };
+
+        ws.onmessage = (event) => {
+            const chat = document.getElementById("chat");
+            const message = document.createElement("div");
+            message.className = "message";
+            message.textContent = event.data;
+            chat.appendChild(message);
+            chat.scrollTop = chat.scrollHeight; // Scroll to the bottom
+        };
+
+        ws.onclose = () => {
+            console.log("Disconnected from the WebSocket server.");
+        };
+
+        ws.onerror = (error) => {
+            console.error("WebSocket error:", error);
+        };
+
+        document.getElementById("send").onclick = () => {
+            const input = document.getElementById("input");
+            const message = input.value.trim();
+            if (message) {
+                ws.send(message);
+                input.value = "";
+            }
+        };
+
+        document.getElementById("input").addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                document.getElementById("send").click();
+            }
+        });
+    </script>
+</body>
+</html>
