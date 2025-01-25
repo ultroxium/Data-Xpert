@@ -17,12 +17,16 @@ export default function Footer() {
           </div>
 
           <div className="flex space-x-6">
-            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
-              <Github size={20} />
+            <a href="https://github.com/ultroxium/Data-Xpert" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
+              <Github size={16} />
               <span className="sr-only">GitHub</span>
             </a>
             <a href="https://x.com/ultroxium" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
-              <Twitter size={20} />
+              <img src="/x.svg" alt="X" className='w-4 h-4'/>
+              <span className="sr-only">Twitter</span>
+            </a>
+            <a href="https://instagram.com/ultroxium" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
+              <img src="/instagram.svg" alt="Instagram" className='w-4 h-4'/>
               <span className="sr-only">Twitter</span>
             </a>
           </div>
@@ -34,4 +38,3 @@ export default function Footer() {
     </footer>
   )
 }
-

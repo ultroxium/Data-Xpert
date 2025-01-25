@@ -21,6 +21,7 @@ import {
   Moon,
   Palette,
   Receipt,
+  Settings,
   Sun,
   User
 } from 'lucide-react';
@@ -60,14 +61,8 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({ isLabel }) => {
             <AvatarImage src={me?.picture} alt="@shadcn" />
             <AvatarFallback>{me?.name?.charAt(0)?.toUpperCase()}</AvatarFallback>
           </Avatar>
-          {/* <Button
-            variant={'ghost'}
-            className="relative w-9 p-0 m-0 border rounded-full cursor-pointer">
-            <Settings size={16} />
-          </Button> */}
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="flex flex-col gap-2">
-          <Link href={'/settings'}>
             <DropdownMenuItem className="flex items-center gap-3">
               <User size={15} />
               <div className="flex flex-col">
@@ -75,12 +70,16 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({ isLabel }) => {
                 <span className="text-xs text-muted-foreground">{me?.email}</span>
               </div>
             </DropdownMenuItem>
-          </Link>
           <DropdownMenuSeparator />
+          <Link href={'/settings'}>
+          <DropdownMenuItem className="flex items-center gap-3">
+            <Settings size={16}/> Settings
+          </DropdownMenuItem>
+          </Link>
 
           <DropdownMenuSub>
             <DropdownMenuSubTrigger className="flex items-center gap-3">
-              <Palette size={15} />
+              <Palette size={16} />
               Appearance
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>

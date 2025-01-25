@@ -31,6 +31,42 @@ class Services:
         self.permission_check = PermissionCheck(db, current_user)
         self.b2_filemanager = B2FileManager()
 
+    def get_fileupload_progress(self,workspace_id):
+        #get the file upload progress
+        if workspace_id==0:
+            workspace = (
+                self.db.query(WorkspaceModel)
+                .filter(
+                    WorkspaceModel.created_by == self.current_user.id,
+                    WorkspaceModel.name == "Default Workspace",
+                )
+                .first()
+            )
+        else:
+             workspace = (
+                self.db.query(WorkspaceModel)
+                .filter(
+                    WorkspaceModel.created_by == self.current_user.id,
+                    WorkspaceModel.id == workspace_id,
+                )
+                .first()
+            )
+             
+        if not workspace:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Workspace not found",
+            )
+        
+        datasets = self.db.query(DatasetModel).filter(DatasetModel.workspace_id == workspace.id).all()
+        current_datasets = len(datasets)
+
+        return {
+            "current_datasets": current_datasets,
+            "total_datasets": 10,
+            "workspace": workspace.name,
+        }
+
     
     def workspace_insights(self):
         # Query non-deleted workspaces, datasets, and charts created by the current user

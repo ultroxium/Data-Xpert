@@ -47,6 +47,20 @@ async function fetchDatasetsByWorkspaceId(workspaceId: string) {
   });
 }
 
+// Helper function to fetch get_fileupload_progress
+async function fetchFileUploadProgress(workspaceId: string | null) {
+  const token = await getTokenFromCookies();
+  return axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/dashboard/file-upload-progress?workspace_id=${workspaceId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+}
+
+
 // GET handler
 export async function GET(req: Request) {
   const url = new URL(req.url);
@@ -64,7 +78,10 @@ export async function GET(req: Request) {
       response = await fetchDatasetsByWorkspaceId(workspaceId);
     } else if (type === 'default') {
       response = await fetchDefaultDataset();
-    } else {
+    } else if (type === 'fileuploadprogress') {
+      response = await fetchFileUploadProgress(workspaceId);
+    }
+    else {
       return NextResponse.json({ message: 'Invalid type parameter' }, { status: 400 });
     }
 

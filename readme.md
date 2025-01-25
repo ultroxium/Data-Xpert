@@ -40,7 +40,7 @@ To set up DataXpert locally, follow these steps:
 5. Start the backend server:
    ```bash
    cd backend
-   uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4 --reload
+   uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
    ```
 
 6. Start the frontend server:

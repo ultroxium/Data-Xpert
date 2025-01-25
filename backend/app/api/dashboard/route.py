@@ -25,3 +25,8 @@ def get_services(db: Session = Depends(get_db), current_user: dict = Depends(get
 @router.get("/", response_model=GetWorkspaceInfoResponse)
 def get_all_workspace_insights(services: Services = Depends(get_services)):
     return services.workspace_insights()
+
+#get files count in each workspace out of 10.
+@router.get("/file-upload-progress")
+def get_file_upload_progress(workspace_id: int=None,services: Services = Depends(get_services)):
+    return services.get_fileupload_progress(workspace_id)
