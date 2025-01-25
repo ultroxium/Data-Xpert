@@ -74,7 +74,7 @@ const Sidebar = () => {
 
   return (
     <aside className={cn(
-      "h-full flex flex-col justify-between bg-gradient-to-r from-slate-200 to-white dark:from-slate-900 dark:to-background border-r transition-all duration-300 ease-in-out",
+      "h-full flex flex-col justify-between border-r transition-all duration-300 ease-in-out",
       isCollapsed ? "w-16" : "w-64"
     )}>
       <nav className="flex-grow p-4">

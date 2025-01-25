@@ -27,7 +27,7 @@ const Topbar = ({ layout = 'workspace', title = "", workspaceId, datasetId }: To
   const { data, isLoading, error } = useWorkspace();
 
   return (
-    <div className="h-16 border-b  bg-gradient-to-b from-slate-200 to-white dark:from-slate-900 dark:to-background">
+    <div className="h-16 border-b">
       <div className="h-full flex w-full items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Link href="/">

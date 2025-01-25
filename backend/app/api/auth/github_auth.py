@@ -107,7 +107,7 @@ async def github_callback(request: Request, db: Session = Depends(get_db)):
         data={"id": user.id, "sub": user.email}, expires_delta=access_token_expires
     )
 
-    redirect_url = f"{settings.FRONTEND_URL}/dashboard?token={access_token}"
+    redirect_url = f"{settings.FRONTEND_URL}/login?token={access_token}"
     return RedirectResponse(url=redirect_url)
 
 @router.get('/github/logout')
