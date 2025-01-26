@@ -1080,6 +1080,7 @@ class PublicServices:
         data = list(zip(df[x_values], df[y_values]))
         return self._create_chart_response(chart, data=data)
 
+
     async def _process_heatmap(self, chart: ChartModel, df: pd.DataFrame):
         x_values = list(chart.xAxis)[0]
         y_values = list(chart.yAxis)
@@ -1100,14 +1101,14 @@ class PublicServices:
                 result = grouped.max()
             else:
                 raise ValueError(f"Invalid option: {chart.option}")
-            result = result.round(2)
-            heatmap_data.extend([[i, j, result.iloc[j]] for j in range(len(result))])
+            result = result.round(2)  # Round to 2 decimal places
+            heatmap_data.extend([[i, j, float(result.iloc[j])] for j in range(len(result))])  # Use float() instead of int()
 
         xLabel = df[x_values].unique().tolist()
         yLabel = y_values
         all_values = [data[2] for data in heatmap_data]
-        max_value = max(all_values)
-        min_value = min(all_values)
+        max_value = float(max(all_values))  # Use float() instead of int()
+        min_value = float(min(all_values))  # Use float() instead of int()
 
         return self._create_chart_response(chart, xLabel=xLabel, yLabel=yLabel, data={
             "dataList": heatmap_data,
@@ -1116,7 +1117,7 @@ class PublicServices:
             "max": max_value,
             "min": min_value,
         })
-
+    
     async def _process_stacked_line(self, chart: ChartModel, df: pd.DataFrame):
         x_values = list(chart.xAxis)[0]
         y_values = list(chart.yAxis)
