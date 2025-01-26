@@ -30,6 +30,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { toast } from 'sonner';
+import { CommonConfirmationAlert } from './common-confirmation';
+import { Button } from '../ui/button';
 
 interface SettingsMenuProps {
   isLabel: boolean;
@@ -101,10 +103,18 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({ isLabel }) => {
             </DropdownMenuPortal>
           </DropdownMenuSub>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="flex items-center gap-3" onClick={logout}>
-            <LogOut size={15} />
+          <CommonConfirmationAlert
+          component={
+            <Button variant={'ghost'} className='flex items-center w-full justify-start px-2 gap-3'>
+            <LogOut size={15} className='text-red-500'/>
             Logout
-          </DropdownMenuItem>
+          </Button>
+          }
+          title="Logout"
+          description="Are you sure you want to logout?"
+          btnText='yes, logout'
+          handleConfirm={logout}
+          />
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
