@@ -46,9 +46,20 @@ class Services:
             .filter_by(**filters, is_deleted=False)
             .first()
         )
+    
 
-    def create_dataset(self,workspace_id, name: str, description: str, file: UploadFile):
-        if workspace_id ==0 or not workspace_id:
+    def create_dataset(self, workspace_id, name: str, description: str, file: UploadFile):
+        file.file.seek(0, 2)  # Move to the end of the file
+        file_size = file.file.tell()  # Get the file size in bytes
+        file.file.seek(0)  # Reset the file pointer to the beginning
+
+        if file_size > 5 * 1024 * 1024:  # 5MB in bytes
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="File size exceeds the maximum limit of 5MB",
+            )
+
+        if workspace_id == 0 or not workspace_id:
             workspace = (
                 self.db.query(WorkspaceModel)
                 .filter(
@@ -79,7 +90,7 @@ class Services:
             wid = workspace_id
             wname = workspace.name
 
-        #check total num of dataset in workspace    
+        # Check total number of datasets in workspace
         dataset_count = (
             self.db.query(DatasetModel)
             .filter(DatasetModel.workspace_id == wid, DatasetModel.is_deleted == False)
@@ -98,18 +109,27 @@ class Services:
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Dataset with this name already exists",
             )
+
         file_extension = file.filename.split(".")[-1].lower()
         if file_extension != "csv":
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Only CSV files are allowed",
             )
-        data_path = f"{self.current_user.id}/{wname}/datasets/{name}"
+
+        # Read the file into a DataFrame
         uploaded_dataset = pd.read_csv(BytesIO(file.file.read()))
+
+        # Check the number of rows (5000 rows limit)
+        if len(uploaded_dataset) > 5000:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Dataset exceeds the maximum limit of 5000 rows",
+            )
+
+        data_path = f"{self.current_user.id}/{wname}/datasets/{name}"
         self.b2_filemanager.write_file(uploaded_dataset, data_path, 'csv')
 
-
-        
         # Create new dataset
         new_dataset = DatasetModel(
             name=name,
@@ -120,12 +140,11 @@ class Services:
         )
 
         self.db.add(new_dataset)
-
         self.db.commit()
         self.db.refresh(new_dataset)
-        
+
         created_dataset = self.db.query(DatasetModel).options(joinedload(DatasetModel.creator)).filter(DatasetModel.id == new_dataset.id).one_or_none()
-        df= self.b2_filemanager.read_file(created_dataset.data, 'csv')
+        df = self.b2_filemanager.read_file(created_dataset.data, 'csv')
 
         processed_data_path = f"{self.current_user.id}/{wname}/datasets/{created_dataset.id}/{name}"
         self.b2_filemanager.write_file(uploaded_dataset, processed_data_path, 'csv')

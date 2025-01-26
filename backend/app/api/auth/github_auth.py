@@ -118,4 +118,4 @@ async def github_logout(request: Request):
         # Clear session data
         request.session.clear()
     
-    return RedirectResponse(url='https://www.dataxpert.vercel.app')
+    return RedirectResponse(url='https://dataxpert.vercel.app')

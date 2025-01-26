@@ -14,6 +14,7 @@ from app.api.plans import route as plan_route
 from app.api.feature_engineering import router as feature_engineering_route
 from app.api.models import router as model_route
 from app.api.quick_notes import route as quick_notes_route
+from app.api.feedback import route as feedback_route
 
 api_router = APIRouter()
 
@@ -31,3 +32,4 @@ api_router.include_router(plan_route.router)
 api_router.include_router(feature_engineering_route.router)
 api_router.include_router(model_route.router)
 api_router.include_router(quick_notes_route.router)
+api_router.include_router(feedback_route.router)

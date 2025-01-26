@@ -121,5 +121,5 @@ async def logout(request: Request):
         # Clear session data
         request.session.clear()  # This clears all session data
     
-    return RedirectResponse(url='https://www.dataxpert.vercel.app')
+    return RedirectResponse(url='https://dataxpert.vercel.app')
 
