@@ -18,6 +18,7 @@ import { ChartCreateSideBar } from './chart-create-sidebar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChartBuilderAI } from './chart-builder-ai';
 import { BeautifulChartRibbon } from './charts-config';
+import { PresetShare } from '@/components/preview/share';
 
 
 const PreviewCharts = React.lazy(() => import('./PreviewCharts'));
@@ -63,13 +64,13 @@ const DataVisualizePage = ({
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-          {/* <PresetShare workspaceId={workspaceId} datasetId={datasetId} /> */}
+          <PresetShare workspaceId={workspaceId} datasetId={datasetId} />
           </div>
 
           <Suspense>
             {isChartDataLoading && (
               <div className="h-full w-full py-4 pb-20">
-                <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-2 gap-4">
                   {[...Array(6)].map((_, index) => (
                     <Card
                       key={index}

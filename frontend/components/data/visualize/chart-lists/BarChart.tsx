@@ -66,7 +66,7 @@ const BarChart: React.FC<BarChartProps> = ({
         type: 'bar',
         data: yAxisData,
         itemStyle: {
-          color: color? color :'#E11D4890',
+          color: color? color :'#3b82f690',
         },
       },
     ],

@@ -1100,6 +1100,7 @@ class PublicServices:
                 result = grouped.max()
             else:
                 raise ValueError(f"Invalid option: {chart.option}")
+            result = result.round(2)
             heatmap_data.extend([[i, j, result.iloc[j]] for j in range(len(result))])
 
         xLabel = df[x_values].unique().tolist()
@@ -1136,6 +1137,7 @@ class PublicServices:
                 result = grouped.max()
             else:
                 raise ValueError(f"Invalid option: {chart.option}")
+            result = result.round(2)
             stacked_line_data.append({
                 "name": y_value,
                 "type": "line",

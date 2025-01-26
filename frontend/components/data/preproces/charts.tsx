@@ -32,7 +32,7 @@ export const DistributionChart: React.FC<VerticalBarChartProps> = ({ xLabel, yLa
         type: 'bar',
         data: yLabel,
         itemStyle: {
-          color: '#E11D4890',
+          color: '#3b82f690',
         },
         barWidth: '100%',
       },

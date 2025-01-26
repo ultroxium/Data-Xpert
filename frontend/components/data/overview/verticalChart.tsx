@@ -33,7 +33,7 @@ const VerticalBarChart: React.FC<VerticalBarChartProps> = ({ xLabel, yLabel,colo
         type: 'bar',
         data: yLabel,
         itemStyle: {
-          color: color ? color : '#E11D4890',
+          color: color ? color : '#3b82f690',
         },
         barWidth: '98%',
       },

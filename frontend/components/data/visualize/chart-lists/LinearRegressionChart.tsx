@@ -100,7 +100,7 @@ const LinearRegressionChart: React.FC<LinearRegressionChartChartProps> = ({
         name: 'scatter',
         type: 'scatter',
         itemStyle: {
-          color: '#E11D4890',
+          color: '#3b82f690',
         },
       },
       {

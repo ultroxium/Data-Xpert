@@ -49,7 +49,7 @@ const ActualVsPredictedChart: React.FC<ActualVsPredictedChartProps> = ({ actual,
         symbol: 'diamond',
         symbolSize: 8,
         itemStyle: {
-          color: '#E11D4890',
+          color: '#3b82f690',
         },
       },
     ],

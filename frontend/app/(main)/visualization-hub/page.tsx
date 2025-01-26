@@ -1,4 +1,4 @@
-import VisualizationHubComponent from "@/components/visualization-hub";
+import VisualizationHubComponent from "@/components/preview";
 
 const VisualizationHubPage = () => {
     return (

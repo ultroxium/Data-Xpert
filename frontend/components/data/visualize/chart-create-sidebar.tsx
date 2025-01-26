@@ -22,6 +22,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import {
+    ChevronLeft,
+    ChevronRight,
+    CirclePlus,
     LayoutDashboard,
     LoaderCircle,
     Plus,
@@ -47,6 +50,8 @@ export function ChartCreateSideBar({
 
     const [isClient, setIsClient] = useState(false);
     const queryClient = useQueryClient();
+    const [isExpanded, setIsExpanded] = useState(false)
+
 
     const postChartsData = async (workspaceId: string, datasetId: string, data: any) => {
         const response = await axios.post(
@@ -97,11 +102,25 @@ export function ChartCreateSideBar({
         return false;
     };
 
+    const toggleSidebar = () => {
+        setIsExpanded(!isExpanded)
+      }
+
     return (
-        <div className='w-[20rem] h-[calc(100vh-4rem)] border-l sticky top-0 bg-background overflow-auto' style={{
-            scrollbarWidth:'none'
-        }}>
-            <CardContent className='py-4'>
+        <div
+      className={`transition-all duration-300 ease-in-out h-[calc(100vh-4rem)] border-l sticky top-0 bg-background overflow-auto flex flex-col items-start justify-start`}
+      style={{
+        width: isExpanded ? "20rem" : "4rem",
+        scrollbarWidth: "none",
+      }}
+    >
+        <div className="p-4 pb-0">
+        <Button variant="secondary" size="icon" onClick={toggleSidebar}>
+          {isExpanded ? <ChevronRight className="h-4 w-4" /> : <CirclePlus className="h-4 w-4" />}
+        </Button>
+      </div>
+
+           {isExpanded && <CardContent className='py-4'>
                 <Formik
                     initialValues={{
                         title: '',
@@ -394,9 +413,9 @@ export function ChartCreateSideBar({
                     )}
                 </Formik>
 
-                <ChartBuilderAI />
+                {/* <ChartBuilderAI /> */}
 
-            </CardContent>
+            </CardContent>}
         </div>
     )
 }
