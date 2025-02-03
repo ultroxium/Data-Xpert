@@ -81,7 +81,7 @@ export default function FeedbackBox() {
   }
 
   return (
-    <div className="fixed right-16 bottom-10 z-50">
+    <div className="fixed right-6 bottom-6 md:right-16 md:bottom-10 z-50">
       <AnimatePresence>
         {!isOpen && (
           <motion.div

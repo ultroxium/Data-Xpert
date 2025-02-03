@@ -9,7 +9,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center gap-2">
-            <Boxes size={30} className='text-white/80'/> <MoveRight size={24} className='text-white/50'/> <span className='text-white/80 text-xl'>DataXpert</span>
+            <Boxes size={30} className='text-white/80'/> <MoveRight size={24} className='text-white/50'/> <span className='text-white/80 text-xl hidden md:block'>DataXpert</span>
             </Link>
           </div>
           <div >
