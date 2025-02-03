@@ -84,7 +84,7 @@ export function ReviewMarquee() {
       <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-600 mb-12 text-center">
           What people are saying
         </h2>
-        <div className="relative grid w-full grid-cols-4 overflow-hidden rounded-lg h-[500px]">
+        <div className="relative grid w-full grid-cols-2 md:grid-cols-2 lg:grid-cols-4 overflow-hidden rounded-lg h-[500px]">
           <Marquee pauseOnHover className="[--duration:20s]" vertical={true}>
             {firstColumn.map((review) => (
               <ReviewCard key={review.username} {...review} />

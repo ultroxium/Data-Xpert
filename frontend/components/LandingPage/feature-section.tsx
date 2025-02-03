@@ -77,11 +77,12 @@ function FeatureCard({ icon: Icon, title, description, index }) {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`group relative  backdrop-filter backdrop-blur-lg p-6 hover:shadow-2xl transition-all duration-300 overflow-hidden border-gray-400 ${[0,1,2,4,5,6].includes(index)}?"border-r":${[4,5,6,7].includes(index)}?"border-t":"border-none"`}className={`group relative backdrop-filter backdrop-blur-lg p-6 hover:shadow-2xl transition-all duration-300 overflow-hidden border-gray-600 
-  ${[0,1,2,4,5,6].includes(index) ? "border-r" : ""}
-  ${[4,5,6,7].includes(index) ? "border-t" : ""}
-  ${![0,1,2,4,5,6].includes(index) && ![4,5,6,7].includes(index) ? "border-none" : ""}
-`}
+      className={`group relative backdrop-filter backdrop-blur-lg p-6 hover:shadow-2xl transition-all duration-300 overflow-hidden border-gray-600 
+        ${[0,1,2,4,5,6].includes(index) ? "lg:border-r" : ""} 
+        ${[4,5,6,7].includes(index) ? "lg:border-t" : ""} 
+        ${![0,1,2,4,5,6].includes(index) && ![4,5,6,7].includes(index) ? "border-none" : ""}
+      `}
+      
 
     >
       <div className="absolute inset-0 bg-gradient-to-br from-slate-500 to-gray-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
