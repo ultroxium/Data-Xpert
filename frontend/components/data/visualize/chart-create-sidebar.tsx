@@ -120,7 +120,7 @@ export function ChartCreateSideBar({
         </Button>
       </div>
 
-           {isExpanded && <CardContent className='py-4'>
+           {isExpanded && <CardContent className='py-4 w-full'>
                 <Formik
                     initialValues={{
                         title: '',
@@ -150,7 +150,7 @@ export function ChartCreateSideBar({
 
                     }}>
                     {({ setFieldValue, values }) => (
-                        <Form className="flex flex-col gap-6 w-full">
+                        <Form className="flex flex-col gap-6 w-full ">
                             <div className="flex flex-col gap-2">
                                 <Label htmlFor="title" className='text-xs uppercase text-muted-foreground'>Chart Title</Label>
                                 <Field as={Input} id="title" name="title" placeholder="Enter title" />

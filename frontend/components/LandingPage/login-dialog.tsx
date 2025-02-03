@@ -24,7 +24,7 @@ export default function LoginDialog({ title = 'Sign in', isArrow=false }: { titl
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" className="rounded-full text-lg font-semibold px-6 py-2 transition-all duration-300 hover:scale-105">
+        <Button variant="default" className="rounded-full text-lg font-semibold px-6 py-2 transition-all duration-300 hover:scale-105 border border-white/20">
           {title} {isArrow && <ArrowRight size={16}/>}
         </Button>
       </DialogTrigger>

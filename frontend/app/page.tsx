@@ -1,13 +1,14 @@
-import Faqs from '@/components/LandingPage/Faqs';
+import FAQSection from '@/components/LandingPage/Faqs';
 import GetStarted from '@/components/LandingPage/get-started-section';
 import  Hero  from '@/components/LandingPage/hero-section';
 import { ReviewMarquee } from '@/components/LandingPage/reviews-section';
 import Navbar from '@/components/LandingPage/nav-bar';
 import Footer from '@/components/LandingPage/footer';
 import { constructMetadata } from '@/lib/metadata';
-import FeaturesSection from '@/components/LandingPage/feature-section';
+import FeatureSection from '@/components/LandingPage/feature-section';
 import { LayoutGridDemo } from '@/components/LandingPage/feature-grid';
 import FeedbackBox from '@/components/LandingPage/feedback';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export const metadata = constructMetadata({
   title: 'DataXpert - Predictive Analytics Made Easy',
@@ -17,19 +18,16 @@ export const metadata = constructMetadata({
 
 export default function Home() {
   return (
-    <div className="overflow-auto" style={{
-      scrollbarWidth:"none",
-    }}>
+    <ScrollArea scrollHideDelay={10}>
       <Navbar />
       <Hero />
+      <FeatureSection/>
       <LayoutGridDemo/>
-      <FeaturesSection/>
-      {/* <Features />
+      <FAQSection />
       <ReviewMarquee />
-      <GetStarted /> */}
-      {/* <Faqs /> */}
       <FeedbackBox/>
+      <GetStarted />
       <Footer />
-    </div>
+    </ScrollArea>
   );
 }

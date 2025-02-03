@@ -3,42 +3,43 @@ import { Marquee } from '@/components/ui/marquee';
 
 const reviews = [
   {
-    name: 'Jack',
-    username: '@jack',
-    body: "I've never seen anything like this before. It's amazing. I love it.",
-    img: 'https://avatar.vercel.sh/jack',
+    name: 'Alice',
+    username: '@alice',
+    body: "DataXpert makes data analysis effortless. The visualizations are clean, and the UI is intuitive!",
+    img: 'https://avatar.vercel.sh/alice',
   },
   {
-    name: 'Jill',
-    username: '@jill',
-    body: "I don't know what to say. I'm speechless. This is amazing.",
-    img: 'https://avatar.vercel.sh/jill',
+    name: 'Bob',
+    username: '@bob',
+    body: "I've tried many tools, but DataXpert stands out with its simplicity and powerful features. Highly recommended!",
+    img: 'https://avatar.vercel.sh/bob',
   },
   {
-    name: 'John',
-    username: '@john',
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/john',
+    name: 'Charlie',
+    username: '@charlie',
+    body: "The ability to quickly upload and analyze data is a game-changer for me. Saved me so much time!",
+    img: 'https://avatar.vercel.sh/charlie',
   },
   {
-    name: 'Jane',
-    username: '@jane',
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/jane',
+    name: 'Diana',
+    username: '@diana',
+    body: "Being open-source is a huge plus! I love how customizable DataXpert is for my needs.",
+    img: 'https://avatar.vercel.sh/diana',
   },
   {
-    name: 'Jenny',
-    username: '@jenny',
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/jenny',
+    name: 'Ethan',
+    username: '@ethan',
+    body: "Finally, a data tool that doesn’t overcomplicate things. Simple, fast, and effective!",
+    img: 'https://avatar.vercel.sh/ethan',
   },
   {
-    name: 'James',
-    username: '@james',
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/james',
-  },
+    name: 'Fiona',
+    username: '@fiona',
+    body: "The API access is fantastic! I integrated it into my workflow within minutes. Great job!",
+    img: 'https://avatar.vercel.sh/fiona',
+  }
 ];
+
 
 const quarterLength = Math.ceil(reviews.length / 4); // Each quarter's length (round up if necessary)
 
@@ -61,30 +62,29 @@ const ReviewCard = ({
   return (
     <figure
       className={cn(
-        'relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4 mb-4',
-        // light styles
-        'border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]',
-        // dark styles
-        'dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]',
+        'relative w-full cursor-pointer overflow-hidden rounded-xl border p-4 mb-4',
+        'border-gray-50/[.1] bg-gray-50/[.10] hover:bg-gray-50/[.15]',
       )}>
       <div className="flex flex-row items-center gap-2">
         <img className="rounded-full" width="32" height="32" alt="" src={img} />
         <div className="flex flex-col">
-          <figcaption className="text-sm font-medium dark:text-white">{name}</figcaption>
-          <p className="text-xs font-medium dark:text-white/40">{username}</p>
+          <figcaption className="text-sm font-medium text-white">{name}</figcaption>
+          <p className="text-xs font-medium text-white/40">{username}</p>
         </div>
       </div>
-      <blockquote className="mt-2 text-sm">{body}</blockquote>
+      <blockquote className="mt-2 text-sm text-gray-300">{body}</blockquote>
     </figure>
   );
 };
 
 export function ReviewMarquee() {
   return (
-    <section className="py-16 overflow-hidden">
-      <div className="max-w-[75vw] mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12 text-muted-foreground">What <span className='text-primary'>Peoples</span> are saying</h2>
-        <div className="relative flex w-full items-center justify-center overflow-hidden rounded-lg h-[500px]">
+    <section className="py-24 bg-gradient-to-t from-black via-black to-black overflow-hidden">
+      <div className="container mx-auto">
+      <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-600 mb-12 text-center">
+          What people are saying
+        </h2>
+        <div className="relative grid w-full grid-cols-4 overflow-hidden rounded-lg h-[500px]">
           <Marquee pauseOnHover className="[--duration:20s]" vertical={true}>
             {firstColumn.map((review) => (
               <ReviewCard key={review.username} {...review} />
@@ -100,13 +100,13 @@ export function ReviewMarquee() {
               <ReviewCard key={review.username} {...review} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover className="[--duration:20s]" vertical={true}>
-            {fourthColumn.map((review) => (
+          <Marquee pauseOnHover className="[--duration:20s]" vertical={true}>
+            {thirdColumn.map((review) => (
               <ReviewCard key={review.username} {...review} />
             ))}
           </Marquee>
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white dark:from-background"></div>
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white dark:from-background"></div>
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black"></div>
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black"></div>
         </div>
       </div>
     </section>
