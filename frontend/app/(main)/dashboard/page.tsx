@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { Workspace } from './types';
 import Spinner from '@/components/common/spinner';
 import DashboardComponent from '@/components/dashboard';
+import MobileMessage from '@/components/mobile-screen-warning';
 
 const fetchWorkspaces = async (): Promise<any> => {
   const response = await axios.get('/api/dashboard?type=workspaces');
@@ -197,6 +198,8 @@ export default function Page() {
           loadingDatasets={loadingDatasets}
         />
       </Suspense>
+
+      <MobileMessage />
     </>
   );
 }

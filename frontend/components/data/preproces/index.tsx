@@ -6,7 +6,7 @@ import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 
 
-import { ChevronLeft, ChevronRight, Loader2, Search, Undo, WandSparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Code2, Loader2, Search, Undo, WandSparkles } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { Suspense, useEffect, useState } from 'react';
 import { DataTransformationToolsBasic } from './constants';
@@ -22,6 +22,7 @@ import { useProcessStoreNew } from '@/store/pre-processing';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Colors } from '@/constant/color';
+import RightBar from '@/components/common/right-bar';
 const SelectMethods = React.lazy(() => import('./SelectEncodingTechnique'));
 const PreviewTable = React.lazy(() => import('./preview-table'));
 
@@ -117,7 +118,7 @@ const FeatureEngineeringPage = ({
   });
 
   return (
-    <div className="w-full flex p-8 gap-8 items-start justify-start">
+    <div className="w-full flex items-start justify-start pl-8 bg-gray-50 dark:bg-slate-800/20">
         <div className='w-18rem grid grid-cols-1 h-[12rem] gap-8 sticky top-8'>
           {filteredFeatures.map((feature, index) => (
             <Button
@@ -137,7 +138,7 @@ const FeatureEngineeringPage = ({
         </div>
       {/* Content */}
       <div
-        className={`flex-1 flex flex-col gap-4 overflow-auto w-full`}>
+        className={`flex-1 flex flex-col gap-4 overflow-auto w-full p-8 `}>
         <div className=" w-full flex gap-4 flex-col md:flex-row">
           <div className="flex-1 max-w-[500px] flex flex-col gap-4">
             <Suspense fallback={<SelectColumnsComponentSkeleton />}>
@@ -279,6 +280,10 @@ const FeatureEngineeringPage = ({
           </Button>
         </div>
       </div>
+
+      <RightBar expandIcon={<Code2 className='w-4 h-4'/>}>
+            <span>Comming soon...</span>
+      </RightBar>
     </div>
   );
 };

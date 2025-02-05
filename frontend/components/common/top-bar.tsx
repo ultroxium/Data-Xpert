@@ -1,20 +1,10 @@
 'use client';
-import { useRouter } from 'next/navigation';
-import { SidebarTrigger } from '@/components/ui/sidebar';
 import NotificationsCard from './notifications';
 import SettingsMenu from './setting-menu';
-import { Button } from '../ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { CustomTooltip } from './custom-tooltip';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { useWorkspace } from '@/hooks/use-workspace';
 import InvitePopover from '../dashboard/ShareLink';
+import Logo from '../logo';
 
 interface TopbarProps {
   layout?: 'workspace' | 'dataset' | 'settings' | 'dashboard' | 'public';
@@ -31,7 +21,7 @@ const Topbar = ({ layout = 'workspace', title = "", workspaceId, datasetId }: To
       <div className="h-full flex w-full items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Link href="/">
-            <div className="w-36 h-16 bg-[url('/logo.png')] dark:bg-[url('/logo_dark.png')] bg-no-repeat bg-center bg-contain" />
+            <Logo/>
           </Link>
         </div>
 

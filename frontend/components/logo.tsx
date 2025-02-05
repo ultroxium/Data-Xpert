@@ -1,7 +1,12 @@
-import { BetweenVerticalEnd } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {  Boxes } from "lucide-react";
 
-export default function Logo() {
-    return <div className="flex items-center gap-2 font-bold">
-        <BetweenVerticalEnd size={16}/> <span>Data<span className="text-primary">Xpert</span></span>
+export default function Logo({
+    className
+}:{
+    className?: string
+}) {
+    return <div className={cn("flex items-center gap-2 font-bold text-muted-foreground",className)}>
+        <Boxes size={24} /> <span className="text-20 font-normal">Dataxpert</span>
     </div>
 }

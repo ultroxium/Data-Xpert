@@ -19,6 +19,7 @@ import CSVUploader from './upload-csv';
 import { Card, CardContent, CardHeader } from '../ui/card';
 import { ScrollArea } from '../ui/scroll-area';
 import { DatasetGrid } from './dataset-grid';
+import { useScreenSize } from '@/hooks/use-screen';
 
 const DashboardComponent = ({
   workspacesData,
@@ -82,6 +83,10 @@ const DashboardComponent = ({
     });
 
   const { data: me, isLoading: meLoading, error: profileError } = useProfile();
+
+  const isDesktop = useScreenSize()
+
+  if (!isDesktop) return null
 
   return (
     <main className="h-screen bg-background w-full">
