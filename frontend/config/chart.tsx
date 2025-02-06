@@ -31,6 +31,14 @@ const StackedLineChart = React.lazy(
   () => import('@/components/data/visualize/chart-lists/StackedLine'),
 );
 
+const StackedAreaChart = React.lazy(
+  () => import('@/components/data/visualize/chart-lists/StackedArea'),
+);
+
+const StackedBarChart = React.lazy(
+  () => import('@/components/data/visualize/chart-lists/StackedBar'),
+);
+
 import {
   AreaChartIcon,
   BarChartIcon,
@@ -176,6 +184,24 @@ export const ChartsList = [
     list: ['average', 'sum', 'min', 'max'],
     component: StackedLineChart,
   },
+  {
+    id: 15,
+    key: 'stacked_area',
+    name: 'Stacked Area Chart',
+    description:
+      'An stacked area chart displays graphically quantitative data. It is based on the line chart. The area between axis and line are commonly emphasized with colors, textures and hatchings.',
+    list: ['average', 'sum', 'min', 'max'],
+    component: StackedAreaChart,
+  },
+  {
+    id: 16,
+    key: 'stacked_bar',
+    name: 'Stacked Bar Chart',
+    description:
+      'An stacked bar chart displays graphically quantitative data. It is based on the line chart. The area between axis and line are commonly emphasized with colors, textures and hatchings.',
+    list: ['average', 'sum', 'min', 'max'],
+    component: StackedBarChart,
+  },
 ];
 
 export const ExcludeChartListForSingleColumnChart = [
@@ -187,6 +213,8 @@ export const ExcludeChartListForSingleColumnChart = [
   'heatmap',
   'correlation',
   'stacked_line',
+  'stacked_area',
+  'stacked_bar',
 ];
 
 export const ExcludeXaxisForMultiColumnChart = [
@@ -206,13 +234,16 @@ export const IncludeChartsForOptions=[
   'pie',
   'heatmap',
   'correlation',
-  'stacked_line'
+  'stacked_line',
+  'stacked_area',
+  'stacked_bar'
 ]
 
 export const ChangeChars = [
   {
     id: 1,
     key: 'bar',
+    isColor: true,
     chanage_to: [
       {
         key: 'line',
@@ -244,6 +275,7 @@ export const ChangeChars = [
   {
     id: 2,
     key: 'line',
+    isColor: true,
     chanage_to: [
       {
         key: 'bar',
@@ -275,6 +307,7 @@ export const ChangeChars = [
   {
     id: 3,
     key: 'area',
+    isColor: true,
     chanage_to: [
       {
         key: 'bar',
@@ -306,6 +339,7 @@ export const ChangeChars = [
   {
     id: 4,
     key: 'scatter',
+    isColor: true,
     chanage_to: [
       {
         key: 'linear_regression',
@@ -324,6 +358,7 @@ export const ChangeChars = [
   {
     id: 5,
     key: 'pie',
+    isColor: false,
     chanage_to: [
       {
         key: 'doughnut',
@@ -355,6 +390,7 @@ export const ChangeChars = [
   {
     id: 6,
     key: 'doughnut',
+    isColor: false,
     chanage_to: [
       {
         key: 'pie',
@@ -386,6 +422,7 @@ export const ChangeChars = [
   {
     id: 7,
     key: 'customized_pie',
+    isColor: false,
     chanage_to: [
       {
         key: 'pie',
@@ -417,6 +454,7 @@ export const ChangeChars = [
   {
     id: 8,
     key: 'linear_regression',
+    isColor: false,
     chanage_to: [
       {
         key: 'polynomial_regression',
@@ -436,6 +474,7 @@ export const ChangeChars = [
   {
     id: 9,
     key: 'polynomial_regression',
+    isColor: false,
     chanage_to: [
       {
         key: 'linear_regression',
@@ -455,6 +494,7 @@ export const ChangeChars = [
   {
     id: 10,
     key: 'exponential_regression',
+    isColor: false,
     chanage_to: [
       {
         key: 'linear_regression',
@@ -474,21 +514,77 @@ export const ChangeChars = [
   {
     id: 11,
     key: 'heatmap',
+    isColor: false,
     chanage_to: [
       {
         key: 'stacked_line',
         name: 'Stacked Line Chart',
       },
+      {
+        key:'stacked_area',
+        name:'Stacked Area Chart'
+      },
+      {
+        key:'stacked_bar',
+        name:'Stacked Bar Chart'
+      }
     ],
   },
   {
     id: 12,
     key: 'stacked_line',
+    isColor: false,
     chanage_to: [
       {
         key: 'heatmap',
         name: 'Heatmap Plot',
       },
+      {
+        key:'stacked_area',
+        name:'Stacked Area Chart'
+      },
+      {
+        key:'stacked_bar',
+        name:'Stacked Bar Chart'
+      }
+    ],
+  },
+  {
+    id: 13,
+    key: 'stacked_area',
+    isColor: false,
+    chanage_to: [
+      {
+        key: 'heatmap',
+        name: 'Heatmap Plot',
+      },
+      {
+        key:'stacked_line',
+        name:'Stacked Line Chart'
+      },
+      {
+        key:'stacked_bar',
+        name:'Stacked Bar Chart'
+      }
+    ],
+  },
+  {
+    id: 14,
+    key: 'stacked_bar',
+    isColor: false,
+    chanage_to: [
+      {
+        key: 'heatmap',
+        name: 'Heatmap Plot',
+      },
+      {
+        key:'stacked_area',
+        name:'Stacked Area Chart'
+      },
+      {
+        key:'stacked_line',
+        name:'Stacked Line Chart'
+      }
     ],
   },
 ];
@@ -559,4 +655,14 @@ export const PlotOptions = [
     key: 'stacked_line',
     plot_options: ['average', 'sum', 'min', 'max'],
   },
+  {
+    id: 14,
+    key: 'stacked_area',
+    plot_options: ['average', 'sum', 'min', 'max'],
+  },
+  {
+    id: 15,
+    key: 'stacked_bar',
+    plot_options: ['average', 'sum', 'min', 'max'],
+  }
 ];

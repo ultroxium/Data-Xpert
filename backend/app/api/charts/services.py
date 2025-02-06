@@ -573,7 +573,7 @@ class Services:
                         }
                     )
 
-            if chart.key in ["stacked_line"]:
+            if chart.key in ["stacked_line","stacked_bar","stacked_area"]:
                 x_values = list(chart.xAxis)[0]
                 y_values = list(chart.yAxis)
 
@@ -919,7 +919,7 @@ class PublicServices:
             return await self._process_scatter_chart(chart, df)
         elif chart.key == "heatmap":
             return await self._process_heatmap(chart, df)
-        elif chart.key == "stacked_line":
+        elif chart.key in ["stacked_line","stacked_bar","stacked_area"]:
             return await self._process_stacked_line(chart, df)
         elif chart.key == "correlation":
             return await self._process_correlation(chart, df)

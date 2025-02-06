@@ -14,7 +14,7 @@ import {
   Search
 } from 'lucide-react';
 import React, { Suspense, useEffect, useState } from 'react';
-import { ChartCreateSideBar } from './chart-create-sidebar';
+import { ChartCreateRightBar } from './chart-create-sidebar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChartBuilderAI } from './chart-builder-ai';
 import { BeautifulChartRibbon } from './charts-config';
@@ -98,7 +98,7 @@ const DataVisualizePage = ({
           </Suspense>
         </div>
       }
-      <ChartCreateSideBar workspaceId={workspaceId} datasetId={datasetId} />
+      <ChartCreateRightBar workspaceId={workspaceId} datasetId={datasetId} />
     </div>
   );
 };

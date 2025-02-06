@@ -1,18 +1,25 @@
-import React from 'react';
-import ReactECharts from 'echarts-for-react';
-import { EChartsOption } from 'echarts';
+import React from "react";
+import ReactECharts from "echarts-for-react";
+import { EChartsOption } from "echarts";
 
 interface ScatterPlotChartProps {
   data: any[];
   xLabel?: string;
   yLabel?: string;
   plotoption?: string;
+  color?: string;
 }
 
-const ScatterPlot: React.FC<ScatterPlotChartProps> = ({ data, xLabel, yLabel, plotoption }) => {
+const ScatterPlot: React.FC<ScatterPlotChartProps> = ({
+  data,
+  xLabel,
+  yLabel,
+  plotoption,
+  color,
+}) => {
   const option = {
     tooltip: {
-      trigger: 'axis',
+      trigger: "axis",
     },
     grid: {
       // left: '20%',
@@ -23,16 +30,16 @@ const ScatterPlot: React.FC<ScatterPlotChartProps> = ({ data, xLabel, yLabel, pl
     },
     toolbox: {
       feature: {
-        saveAsImage: {}
-      }
+        saveAsImage: {},
+      },
     },
     xAxis: {
       // type: 'value',
       // min: 'dataMin',
       name: xLabel,
-      nameLocation: 'middle',
+      nameLocation: "middle",
       nameTextStyle: {
-        fontWeight: 'bold',
+        fontWeight: "bold",
         fontSize: 12,
         padding: 10,
       },
@@ -41,9 +48,9 @@ const ScatterPlot: React.FC<ScatterPlotChartProps> = ({ data, xLabel, yLabel, pl
       // type: 'value', e'
       // min: 'dataMin',
       name: yLabel,
-      nameLocation: 'end',
+      nameLocation: "end",
       nameTextStyle: {
-        fontWeight: 'bold',
+        fontWeight: "bold",
         fontSize: 12,
         padding: 10,
       },
@@ -52,15 +59,15 @@ const ScatterPlot: React.FC<ScatterPlotChartProps> = ({ data, xLabel, yLabel, pl
       {
         symbolSize: 10,
         data: data,
-        type: 'scatter',
+        type: "scatter",
         itemStyle: {
-          color: '#3b82f690',
+          color: color ? color : "#3b82f690",
         },
       },
     ],
     dataZoom: [
       {
-        type: 'inside', // Enable zooming using the mouse wheel and dragging
+        type: "inside", // Enable zooming using the mouse wheel and dragging
         xAxisIndex: 0, // Apply to the x-axis
         yAxisIndex: 0, // Apply to the y-axis
       },

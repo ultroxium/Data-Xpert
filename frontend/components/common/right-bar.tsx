@@ -31,7 +31,7 @@ const RightBar: React.FC<RightBarProps> = ({ children,expandIcon,closeIcon=<Chev
                     {isExpanded ? closeIcon : expandIcon}
                 </Button>
             </div>
-            {isExpanded && <CardContent className='py-4 w-full'>
+            {isExpanded && <CardContent className='p-4 w-full'>
                 {children}
             </CardContent>}
         </div>
