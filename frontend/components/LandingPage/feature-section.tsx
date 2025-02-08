@@ -54,7 +54,7 @@ export default function FeatureSection() {
   const y = useTransform(scrollYProgress, [0, 1], [0, -50])
 
   return (
-    <section className="relative bg-black py-24 pt-48 overflow-hidden">
+    <section className="relative bg-black py-24 pb-48 overflow-hidden">
       <motion.div className="container mx-auto px-4" style={{ y }}>
         <h2 className="text-5xl font-bold text-center text-white mb-16 relative z-10">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">

@@ -29,7 +29,7 @@ const faqs = [
 
 export default function FAQSection() {
   return (
-    <div className="py-24 flex items-center justify-center bg-black">
+    <div className="py-24 pt-48 flex items-center justify-center bg-black ">
       <div className="w-full max-w-3xl p-8">
         <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-white mb-12 text-center">
           Frequently Asked Questions

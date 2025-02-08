@@ -6,6 +6,7 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { Boxes } from "lucide-react"
 import LoginDialog from "./login-dialog"
+import LogoMarquee from "./logos"
 
 export const pacifico = Pacifico({
   subsets: ["latin"],

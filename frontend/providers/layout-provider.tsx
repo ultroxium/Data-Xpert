@@ -29,7 +29,7 @@ export default function LayoutProvider({ children }: { children: ReactNode }) {
       enableSystem
       disableTransitionOnChange
     >
-      <UserGuide steps={steps} />
+      {/* <UserGuide steps={steps} /> */}
       <QueryClientProvider client={queryClient}>
         {token ? <WebSocketProvider>{children}</WebSocketProvider> : children}
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}

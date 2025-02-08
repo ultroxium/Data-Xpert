@@ -9,6 +9,7 @@ import FeatureSection from '@/components/LandingPage/feature-section';
 import { LayoutGridDemo } from '@/components/LandingPage/feature-grid';
 import FeedbackBox from '@/components/LandingPage/feedback';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import LogoMarquee from '@/components/LandingPage/logos';
 
 export const metadata = constructMetadata({
   title: 'DataXpert - Predictive Analytics Made Easy',
@@ -21,6 +22,8 @@ export default function Home() {
     <ScrollArea scrollHideDelay={10}>
       <Navbar />
       <Hero />
+      <LogoMarquee/>
+
       <FeatureSection/>
       <LayoutGridDemo/>
       <FAQSection />

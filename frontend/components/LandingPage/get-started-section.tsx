@@ -3,7 +3,7 @@ import LoginDialog from "./login-dialog"
 
 export default function GetStartedBanner() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden pb-24">
       <div className="absolute inset-0 bg-black"></div>
       <div className="container relative mx-auto py-16 px-4 z-10">
         <div className="backdrop-blur-md bg-white/10 rounded-2xl p-8 shadow-lg border border-white/20">
