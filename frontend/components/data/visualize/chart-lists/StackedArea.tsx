@@ -16,10 +16,10 @@ const StackedAreaChart: React.FC<StackedAreaChartProps> = ({ data, plotoption })
       data: data?.yLabel,
     },
     grid: {
-      left: '20%',
-      right: '20%',
-      bottom: '20%',
-      top: '20%',
+      // left: '20%',
+      // right: '20%',
+      // bottom: '20%',
+      // top: '20%',
       containLabel: true,
     },
     toolbox: {

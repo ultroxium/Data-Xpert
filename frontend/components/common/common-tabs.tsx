@@ -14,7 +14,7 @@ interface CommonTabsProps {
 export function CommonTabs({ tabs, defaultTab }: CommonTabsProps) {
   return (
     <Tabs defaultValue={defaultTab || tabs[0].name} className="w-full">
-      <TabsList className="flex-1">
+      <TabsList className="flex-1 mb-2 ">
         {tabs.map((tab) => (
           <TabsTrigger key={tab.name} value={tab.name} className="relative">
             {tab.name}

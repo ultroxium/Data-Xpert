@@ -76,7 +76,7 @@ class Services:
                 detail="Dataset does not exist",
             )
         
-        if data.xAxis == data.yAxis:
+        if data.xAxis and data.yAxis and data.xAxis == data.yAxis:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="X and Y axis cannot be same",
@@ -90,6 +90,7 @@ class Services:
             xAxis=data.xAxis,
             yAxis=data.yAxis,
             option=data.option,
+            dtype=data.dtype,
             dataset_id=dataset_id,
             workspace_id=dataset.workspace_id,
             created_by=self.current_user.id,
@@ -134,11 +135,22 @@ class Services:
             workspace_id=workspace_id,
         )
 
-        df = self.b2_filemanager.read_file(dataset.data, 'csv')
-
         final_chart = []
 
+        wname = (
+            self.db.query(WorkspaceModel)
+            .filter(WorkspaceModel.id == workspace_id)
+            .first()
+            .name
+        )
+
         for chart in charts:
+            processed_data_path = f"{self.current_user.id}/{wname}/datasets/{dataset.id}/{dataset.name}"
+            df = self.b2_filemanager.read_file(dataset.data, 'csv')
+
+            if chart.dtype == "PROCESSED":
+                df = self.b2_filemanager.read_file(processed_data_path, 'csv')
+
             column = chart.column
             xAxis = chart.xAxis
             yAxis = chart.yAxis
@@ -205,6 +217,7 @@ class Services:
                                 "layout": chart.layout,
                                 "color":chart.color,
                                 "description": chart.description,
+                                "dtype": chart.dtype,
                                 "column": chart.column,
                                 "option": chart.option,
                                 "xLabel": xLabel,
@@ -275,6 +288,7 @@ class Services:
                             "layout": chart.layout,
                             "color":chart.color,
                             "description": chart.description,
+                            "dtype": chart.dtype,
                             "column": chart.column,
                             "option": chart.option,
                             "data": data,
@@ -329,6 +343,7 @@ class Services:
                             "layout": chart.layout,
                             "color":chart.color,
                             "description": chart.description,
+                            "dtype": chart.dtype,
                             "xAxis": chart.xAxis,
                             "yAxis": chart.yAxis,
                             "option": chart.option,
@@ -391,6 +406,7 @@ class Services:
                             "layout": chart.layout,
                             "color":chart.color,
                             "description": chart.description,
+                            "dtype": chart.dtype,
                             "xAxis": chart.xAxis,
                             "yAxis": chart.yAxis,
                             "option": chart.option,
@@ -455,6 +471,7 @@ class Services:
                             "layout": chart.layout,
                             "color":chart.color,
                             "description": chart.description,
+                            "dtype": chart.dtype,
                             "xAxis": chart.xAxis,
                             "yAxis": chart.yAxis,
                             "option": chart.option,
@@ -554,6 +571,7 @@ class Services:
                             "layout": chart.layout,
                             "color":chart.color,
                             "description": chart.description,
+                            "dtype": chart.dtype,
                             "xAxis": chart.xAxis,
                             "yAxis": chart.yAxis,
                             "option": chart.option,
@@ -660,6 +678,7 @@ class Services:
                         "layout": chart.layout,
                         "color":chart.color,
                         "description": chart.description,
+                        "dtype": chart.dtype,
                         "xAxis": chart.xAxis,
                         "yAxis": chart.yAxis,
                         "option": chart.option,
@@ -727,6 +746,7 @@ class Services:
                         "layout": chart.layout,
                         "color":chart.color,
                         "description": chart.description,
+                        "dtype": chart.dtype,
                         "option": chart.option,
                         "data": {
                             "dataList": dataList,
@@ -895,9 +915,21 @@ class PublicServices:
         )
         
         dataset = self._query_non_deleted_dataset(id=dataset_id)
-        df = self.b2_filemanager.read_file(dataset.data, 'csv')
 
+        wname = (
+            self.db.query(WorkspaceModel)
+            .filter(WorkspaceModel.id == workspace_id)
+            .first()
+            .name
+        )
+        
         for chart in charts:
+            processed_data_path = f"{self.current_user.id}/{wname}/datasets/{dataset.id}/{dataset.name}"
+            df = self.b2_filemanager.read_file(dataset.data, 'csv')
+
+            if chart.dtype == "PROCESSED":
+                df = self.b2_filemanager.read_file(processed_data_path, 'csv')
+
             try:
                 result = await self.process_single_chart(chart, df)
                 if result:
@@ -1192,6 +1224,7 @@ class PublicServices:
             "layout": chart.layout,
             "color":chart.color,
             "description": chart.description,
+            "dtype": chart.dtype,
             "xAxis": chart.xAxis,
             "yAxis": chart.yAxis,
             "option": chart.option,

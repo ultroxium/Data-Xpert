@@ -11,10 +11,6 @@ const CustomizedPie: React.FC<CustomizedPieChartProps> = ({ data, xLabel }) => {
   const option = {
     backgroundColor: 'transparent',
     grid: {
-      left: '20%',
-      right: '20%',
-      bottom: '20%',
-      top: '20%',
       containLabel: true,
     },
     toolbox: {
@@ -30,7 +26,7 @@ const CustomizedPie: React.FC<CustomizedPieChartProps> = ({ data, xLabel }) => {
       min: 80,
       max: 600,
       inRange: {
-        colorLightness: [0, 1],
+        colorLightness: [1, 1],
       },
     },
     series: [
@@ -44,21 +40,22 @@ const CustomizedPie: React.FC<CustomizedPieChartProps> = ({ data, xLabel }) => {
         }),
         roseType: 'radius',
         label: {
-          color: '#888',
+          color: '#aaa',
         },
         labelLine: {
           lineStyle: {
-            color: '#888',
+            color: '#aaa',
           },
           smooth: 0.2,
           length: 10,
           length2: 20,
         },
         itemStyle: {
-          color: '#e11d47c0',
-          shadowBlur: 300,
-          shadowColor: 'rgba(231, 102, 51, 0.9)',
+          color: '#c23531',
+          shadowBlur: 200,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
         },
+
         animationType: 'scale',
         animationEasing: 'elasticOut',
         animationDelay: function () {

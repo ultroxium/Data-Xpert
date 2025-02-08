@@ -16,10 +16,10 @@ const HeatMapPlot: React.FC<HeatMapPlotProps> = ({ data, plotoption,color }) => 
       position: 'top',
     },
     grid: {
-      left: '10%',
-      right: '10%',
-      bottom: '20%',
-      top: '10%',
+      // left: '10%',
+      // right: '10%',
+      // bottom: '20%',
+      // top: '10%',
       containLabel: true,
     },
     toolbox: {

@@ -100,10 +100,17 @@ const ChartActions = ({
     },
   });
 
-  const checkType = (selectedData: string) => {
-    const field = columnDetails?.find(
-      (item: any) => item.name === selectedData
-    );
+  const checkType = (selectedData: string, dtype: string) => {
+    let field = null;
+    if (dtype === "PROCESSED") {
+      field = columnDetails?.processed?.find(
+        (item: any) => item.name === selectedData
+      );
+    } else {
+      field = columnDetails?.unprocessed?.find(
+        (item: any) => item.name === selectedData
+      );
+    }
     if (field?.type === "number") {
       return true;
     }
@@ -158,9 +165,8 @@ const ChartActions = ({
     {
       label: "Pink",
       value: "#db2777",
-    }
-];
-
+    },
+  ];
 
   return (
     <DropdownMenu>
@@ -218,8 +224,8 @@ const ChartActions = ({
               <DropdownMenuSubContent>
                 {PlotOptions.filter((chart) => chart.key === item?.key).map(
                   (opt: any) =>
-                    (checkType(item?.yAxis?.[0]) ||
-                      checkType(item?.column) ||
+                    (checkType(item?.yAxis?.[0], item?.dtype) ||
+                      checkType(item?.column, item?.dtype) ||
                       item?.key === "correlation") &&
                     opt?.plot_options
                       ?.filter((selected) => selected !== item?.option)

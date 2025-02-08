@@ -37,12 +37,14 @@ export default function DatasetVisualization({ workspaceId, datasetId }: { works
   } = useDatasetStoreNew();
 
   const router = useRouter();
+  
+  console.log(columnDetails,'columnDetails');
 
   const [selectedChip, setSelectedChip] = useState<Column | null>(null);
 
   useEffect(() => {
-    if (columnDetails && columnDetails.length > 0) {
-      setSelectedChip(columnDetails.filter((i) => i.type === 'number')[0]);
+    if (columnDetails?.unprocessed && columnDetails?.unprocessed.length > 0) {
+      setSelectedChip(columnDetails?.unprocessed.filter((i) => i.type === 'number')[0]);
     }
   }, [columnDetails]);
 
@@ -94,7 +96,7 @@ export default function DatasetVisualization({ workspaceId, datasetId }: { works
                 {isColumnDetailsLoading ? (
                   <Skeleton className="h-8 w-16 " />
                 ) : (
-                  columnDetails?.length
+                  columnDetails?.unprocessed?.length
                 )}
               </p>
             </div>
@@ -138,7 +140,7 @@ export default function DatasetVisualization({ workspaceId, datasetId }: { works
                 {graphPlots.map((plot, index) => {
                   const columnName = Object.keys(plot)[0];
                   const { xlabel, ylabel } = plot[columnName];
-                  const columnType = columnDetails?.find(col => col.name === columnName)?.type;
+                  const columnType = columnDetails?.unprocessed?.find(col => col.name === columnName)?.type;
 
                   return (
                     <Card key={index} className="border-none shadow-none bg-transparent">
@@ -172,7 +174,7 @@ export default function DatasetVisualization({ workspaceId, datasetId }: { works
                 <div className="flex flex-wrap gap-3 mb-8">
                   {isColumnDetailsLoading
                     ? Array(6).fill(0).map((_, i) => <Skeleton key={i} className="h-10 w-28" />)
-                    : columnDetails
+                    : columnDetails?.unprocessed
                       ?.filter((c) => c.type === 'number' || c.type === 'string')
                       .map((column: Column) => (
                         <Button

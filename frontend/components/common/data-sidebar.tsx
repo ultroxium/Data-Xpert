@@ -28,6 +28,16 @@ const sidebarItems = [
         title: "Overview",
         tab: "overview",
         icon: Home,
+      }
+    ],
+  },
+  {
+    tag: "Data Analysis",
+    items: [
+      {
+        title: "Process Data",
+        tab: "preprocess",
+        icon: Cpu,
       },
       {
         title: "Visualize data",
@@ -37,7 +47,7 @@ const sidebarItems = [
     ],
   },
   {
-    tag: "AI Feature",
+    tag: "AI Assistant",
     items: [
       {
         title: "Chat with AI",
@@ -49,11 +59,6 @@ const sidebarItems = [
   {
     tag: "Machine Learning",
     items: [
-      {
-        title: "Process Data",
-        tab: "preprocess",
-        icon: Cpu,
-      },
       {
         title: "Train Data",
         tab: "train",
@@ -157,7 +162,7 @@ const Sidebar = () => {
                           <span
                             className={cn(
                               item.tab === "assistant" &&
-                                "bg-lime-600 text-white w-8 h-8 flex items-center justify-center rounded-lg",
+                                "bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-lg",
                               isCollapsed ? "mr-0" : "mr-3",
                             )}
                           >

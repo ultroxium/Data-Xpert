@@ -13,6 +13,8 @@ import { ProcessedData } from './preproces/process-data';
 import { ModelLists } from './train/model-list';
 import TrainPage from './train';
 import TestModel from './predict';
+import useLocalStorageListener  from '@/hooks/localstorage-listener';
+import { UsedDatasetType } from '@/constant/common-constant';
 
 const DatasetVisualization = lazy(() => import('./overview'));
 const DataVisualizePage = lazy(() => import('./visualize'));
@@ -25,6 +27,7 @@ export default function Main({
   workspaceId: string;
   datasetId: string;
 }) {
+  const isProcessed = useLocalStorageListener("chartDatasetType") === UsedDatasetType.PROCESSED ? "true" : "false";
   const tab = SearchParam('tab');
 
   return (
@@ -41,7 +44,7 @@ export default function Main({
       )}
       {tab === 'visualize' && (
         <>
-          <ColumnDetails workspaceId={workspaceId} datasetId={datasetId} isProcessed="false" />
+          <ColumnDetails workspaceId={workspaceId} datasetId={datasetId} isProcessed={isProcessed} />
           <ChartsData workspaceId={workspaceId} datasetId={datasetId} />
           <DataVisualizePage workspaceId={workspaceId} datasetId={datasetId} />
         </>

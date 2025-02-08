@@ -15,10 +15,10 @@ const CorellationMatrixChart: React.FC<CorellationMatrixChartProps> = ({ data, p
       position: 'top',
     },
     grid: {
-      left: '20%',
-      right: '20%',
-      bottom: '40%',
-      top: '20%',
+      // left: '20%',
+      // right: '20%',
+      // bottom: '40%',
+      // top: '20%',
       containLabel: true,
     },
     toolbox: {
@@ -45,11 +45,11 @@ const CorellationMatrixChart: React.FC<CorellationMatrixChartProps> = ({ data, p
       min: data?.min,
       max: data?.max,
       calculable: true,
-      orient: 'vertical',
-      bottom: '30%',
-      right: '5%',
+      orient: 'horizontal',
+      left: 'center',
+      bottom: '5%',
       inRange: {
-        color: ['white', 'teal'],
+        color: ['white','brown'],
       },
     },
     series: [

@@ -144,7 +144,7 @@ class Services:
         self.db.refresh(new_dataset)
 
         created_dataset = self.db.query(DatasetModel).options(joinedload(DatasetModel.creator)).filter(DatasetModel.id == new_dataset.id).one_or_none()
-        df = self.b2_filemanager.read_file(created_dataset.data, 'csv')
+        self.b2_filemanager.read_file(created_dataset.data, 'csv')
 
         processed_data_path = f"{self.current_user.id}/{wname}/datasets/{created_dataset.id}/{name}"
         self.b2_filemanager.write_file(uploaded_dataset, processed_data_path, 'csv')

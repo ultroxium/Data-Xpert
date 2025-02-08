@@ -148,7 +148,7 @@ const FeatureEngineeringPage = ({
                 <div className="w-full">
                   <h4 className="font-semibold">Select Columns</h4>
                   <MultiSelector
-                    options={columnDetails?.map((col: any) => col.name)}
+                    options={columnDetails?.unprocessed?.map((col: any) => col.name)}
                     isMultiple={true}
                     isSelectAll={true}
                     onSelected={(values) => {
@@ -174,7 +174,7 @@ const FeatureEngineeringPage = ({
             </div>
           )}
 
-          {!isColumnsSelected && columnDetails?.find((col: any) => col.type === 'string') && (
+          {!isColumnsSelected && columnDetails?.unprocessed?.find((col: any) => col.type === 'string') && (
             <CommonConfirmationAlert
               component={
                 <Button variant="ghost" size="icon" className="rounded-full p-0 m-0">
@@ -204,7 +204,7 @@ const FeatureEngineeringPage = ({
         <div className="flex flex-col gap-4 py-4">
           <h4 className="font-semibold">Columns</h4>
           <div className="flex flex-wrap gap-3">
-          {columnDetails?.map((col, index) => (
+          {columnDetails?.unprocessed?.map((col, index) => (
             <div
               key={index}
               className="flex items-center gap-2 p-2 rounded-md border bg-background"

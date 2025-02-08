@@ -15,6 +15,8 @@ from pandas.api.types import is_categorical_dtype,is_object_dtype
 
 from app.api.feature_engineering.utils.outlier_handler import OutlierHandler
 from app.api.feature_engineering.utils.scaler import ScalingData
+from app.api.charts.model import ChartModel
+
 
 class Status:
     CLEANED = "cleaned"
@@ -38,6 +40,9 @@ class Services:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dataset not found")
         
         versions = self.b2_filemanager.delete_recent_file_versions(processed_dataset.data)
+
+        self.db.query(ChartModel).filter(ChartModel.dataset_id == dataset_id,ChartModel.dtype == 'PROCESSED').delete()
+
         processed_dataset.data_metadata=None
         self.db.commit()
         self.db.refresh(processed_dataset)

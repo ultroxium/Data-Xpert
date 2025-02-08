@@ -72,6 +72,60 @@ const BarChart: React.FC<BarChartProps> = ({
     ],
   };
 
+
+  // const links = yAxisData?.map(function (item, i) {
+  //   return {
+  //     source: i,
+  //     target: i + 1
+  //   };
+  // });
+  // links?.pop();
+  // const option = {
+  //   grid:{
+  //     show:false,
+  //     containLabel: true,
+  //   },
+  //   tooltip: {},
+  //   xAxis: {
+  //     type: 'category',
+  //     boundaryGap: false,
+  //     data: xAxisData,
+  //     axisLabel: {
+  //       show: false
+  //     },
+  //     splitLine: {
+  //       show: false  // Hide vertical grid lines
+  //     }
+  //   },
+  //   yAxis: {
+  //     type: 'value',
+  //     splitLine: {
+  //       show: false  // Hide vertical grid lines
+  //     }
+  //   },
+  //   series: [
+  //     {
+  //       type: 'graph',
+  //       layout: 'none',
+  //       coordinateSystem: 'cartesian2d',
+  //       symbolSize: 20,
+  //       label: {
+  //         show: true,
+  //         // color:'#888'
+  //       },
+  //       edgeSymbol: ['circle', 'arrow'],
+  //       edgeSymbolSize: [4, 10],
+  //       data: yAxisData,
+  //       links: links,
+  //       lineStyle: {
+  //         color: color? color :'#3b82f690',
+  //       },
+  //       itemStyle: {
+  //                 color: color? color :'#3b82f690',
+  //               },
+  //     }
+  //   ]
+  // };
   return (
     <div className="h-full w-full flex items-center justify-center ">
       <ReactECharts option={option} className="h-full w-full" />
