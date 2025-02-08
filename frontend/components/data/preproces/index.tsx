@@ -204,7 +204,7 @@ const FeatureEngineeringPage = ({
         <div className="flex flex-col gap-4 py-4">
           <h4 className="font-semibold">Columns</h4>
           <div className="flex flex-wrap gap-3">
-          {columnDetails?.unprocessed?.map((col, index) => (
+          {columnDetails?.processed?.map((col, index) => (
             <div
               key={index}
               className="flex items-center gap-2 p-2 rounded-md border bg-background"
