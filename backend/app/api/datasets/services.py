@@ -16,6 +16,7 @@ from app.api.workspaces.model import WorkspaceModel
 import math
 from sqlalchemy.orm import aliased,joinedload
 from app.Helper.B2fileManager import B2FileManager
+from app.api.models.model import AIModel
 
 import random
 import string
@@ -886,4 +887,30 @@ class Services:
         self.db.commit()
 
         return {"message": "API data refreshed successfully"}
+    
+
+    def is_trained(self,workspace_id, dataset_id):
+        processed_dataset = (
+            self.db.query(ProcessedDataModel)
+            .filter(ProcessedDataModel.dataset_id == dataset_id, DatasetModel.is_deleted == False)
+            .first()
+        )
+
+        if not processed_dataset:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Processed dataset not found",
+            )
+
+        model = (
+            self.db.query(AIModel).filter(AIModel.processed_data_id == processed_dataset.id, AIModel.is_trained == True, AIModel.is_deleted == False).first()
+        )
+        if not model:
+            return {
+                "STATUS": "NOT_TRAINED",
+            }
+        return {
+            "STATUS": "TRAINED",
+        }
+    
 

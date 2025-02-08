@@ -1,9 +1,15 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -12,19 +18,19 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Copy, CopyX, Loader2, Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
-import { fetchInputColumns } from './predict';
-import { useQuery } from '@tanstack/react-query';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { usePredictStoreNew } from '@/store/predict';
+} from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
+import { usePredictStoreNew } from "@/store/predict";
+import { useQuery } from "@tanstack/react-query";
+import { Code2, Copy, CopyX, Loader2, Plus } from "lucide-react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { fetchInputColumns } from "./predict";
+import RightBar from "@/components/common/right-bar";
 
 interface Column {
   name: string;
-  type: 'number' | 'datetime' | 'string';
+  type: "number" | "datetime" | "string";
 }
 
 export default function TestModel({
@@ -34,7 +40,8 @@ export default function TestModel({
   workspaceId: string;
   datasetId: string;
 }) {
-  const { isPredicting, isPredictingSuccess, prediction, predict } = usePredictStoreNew();
+  const { isPredicting, isPredictingSuccess, prediction, predict } =
+    usePredictStoreNew();
 
   const {
     data: InputColumns,
@@ -42,7 +49,7 @@ export default function TestModel({
     error,
     isError,
   } = useQuery({
-    queryKey: ['input-columns', workspaceId, datasetId],
+    queryKey: ["input-columns", workspaceId, datasetId],
     queryFn: () => fetchInputColumns(workspaceId, datasetId),
     refetchOnWindowFocus: false,
     retry: 2,
@@ -55,9 +62,10 @@ export default function TestModel({
       const initialInputs = InputColumns?.reduce(
         (acc, column) => ({
           ...acc,
-          [column.name]: column.type === 'datetime' || column.type === 'string' ? '' : 0,
+          [column.name]:
+            column.type === "datetime" || column.type === "string" ? "" : 0,
         }),
-        {},
+        {}
       );
       setInputs(initialInputs); // Set initial inputs
     }
@@ -67,12 +75,12 @@ export default function TestModel({
 
   const handleInputChange = (key: string, value: string | number) => {
     const column = InputColumns?.find((c) => c.name === key);
-    if (column?.type === 'number') {
+    if (column?.type === "number") {
       setInputs((prev) => ({
         ...prev,
         [key]: parseFloat(value as string) || 0,
       }));
-    } else if (column?.type === 'datetime') {
+    } else if (column?.type === "datetime") {
       setInputs((prev) => ({
         ...prev,
         [key]: value, // Date handling as a string or Date object
@@ -90,7 +98,7 @@ export default function TestModel({
       const column = InputColumns?.find((c) => c.name === newParam);
       setInputs((prev) => ({
         ...prev,
-        [newParam]: column?.type === 'datetime' ? '' : 0,
+        [newParam]: column?.type === "datetime" ? "" : 0,
       }));
       setNewParam(null);
     }
@@ -117,18 +125,20 @@ export default function TestModel({
   }
 
   // Get available InputColumns for the dropdown (those not already used in inputs)
-  const availableColumns = InputColumns?.filter((col) => !Object.keys(inputs).includes(col.name));
+  const availableColumns = InputColumns?.filter(
+    (col) => !Object.keys(inputs).includes(col.name)
+  );
 
   return (
-    <div className="p-4">
+    <div>
       {isInputColumnsLoading ? (
         <LoadingSkeleton />
       ) : (
         InputColumns &&
         InputColumns.length > 0 && (
-          <>
-            <div className="flex flex-col md:flex-row gap-4">
-              <Card className="shadow-none flex-1 border-none">
+          <div className="flex justify-between">
+            <div className="flex-1 flex flex-col gap-4 p-4">
+              <Card className="shadow-none border-none">
                 <CardHeader>
                   <CardTitle>Inputs</CardTitle>
                 </CardHeader>
@@ -156,7 +166,7 @@ export default function TestModel({
                         Predicting...
                       </>
                     ) : (
-                      'Predict'
+                      "Predict"
                     )}
                   </Button>
                 </CardFooter>
@@ -167,12 +177,14 @@ export default function TestModel({
                 isPredicting={isPredicting}
               />
             </div>
-            <SharePredictionApi
-              workspaceId={workspaceId}
-              datasetId={datasetId}
-              inputs={InputColumns}
-            />
-          </>
+            <RightBar expandIcon={<Code2 className="w-4 h-4" />}>
+              <SharePredictionApi
+                workspaceId={workspaceId}
+                datasetId={datasetId}
+                inputs={InputColumns}
+              />
+            </RightBar>
+          </div>
         )
       )}
     </div>
@@ -180,7 +192,7 @@ export default function TestModel({
 }
 
 const LoadingSkeleton = () => (
-  <div className="w-full flex gap-8 flex-col md:flex-row">
+  <div className="w-full flex gap-8 flex-col p-8">
     <Card className="shadow-none flex-1">
       <CardHeader>
         <CardTitle>Inputs</CardTitle>
@@ -209,28 +221,37 @@ const LoadingSkeleton = () => (
   </div>
 );
 
-const InputForm = ({ inputs, InputColumns, handleInputChange, handleRemoveInput }) => (
+const InputForm = ({
+  inputs,
+  InputColumns,
+  handleInputChange,
+  handleRemoveInput,
+}) => (
   <>
     {Object.entries(inputs).map(([key, value]) => {
       const column = InputColumns?.find((c) => c.name === key);
       return (
-        <div key={key} className="flex items-start justify-start flex-col gap-2">
+        <div
+          key={key}
+          className="flex items-start justify-start flex-col gap-2"
+        >
           <Label htmlFor={key} className="">
             {key}
           </Label>
-          {column?.type === 'datetime' ? (
+          {column?.type === "datetime" ? (
             <Input
               id={key}
               type="date"
-              value={typeof value === 'string' ? value : ''}
+              value={typeof value === "string" ? value : ""}
               onChange={(e) => handleInputChange(key, e.target.value)}
               className=""
             />
-          ) : column?.type === 'string' ? (
+          ) : column?.type === "string" ? (
             <Select
               onValueChange={(e) => {
                 handleInputChange(key, e);
-              }}>
+              }}
+            >
               <SelectTrigger className="">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
@@ -263,7 +284,12 @@ const InputForm = ({ inputs, InputColumns, handleInputChange, handleRemoveInput 
   </>
 );
 
-const AddParameterForm = ({ availableColumns, newParam, setNewParam, handleAddInput }) => (
+const AddParameterForm = ({
+  availableColumns,
+  newParam,
+  setNewParam,
+  handleAddInput,
+}) => (
   <div className="flex items-center space-x-2">
     <Select onValueChange={setNewParam} value={newParam || undefined}>
       <SelectTrigger className="w-full">
@@ -283,7 +309,11 @@ const AddParameterForm = ({ availableColumns, newParam, setNewParam, handleAddIn
   </div>
 );
 
-const PredictionOutput = ({ isPredictingSuccess, prediction, isPredicting }) => (
+const PredictionOutput = ({
+  isPredictingSuccess,
+  prediction,
+  isPredicting,
+}) => (
   <Card className="shadow-none max-h-[300px] md:w-1/3 border-none">
     <CardHeader>
       <CardTitle>Output</CardTitle>
@@ -306,7 +336,9 @@ const NoModelTrained = () => (
       <CopyX size={80} className="text-muted-foreground opacity-50" />
     </div>
     <h2 className="text-2xl font-bold text-primary">Model not trained yet</h2>
-    <p className="text-lg text-muted-foreground">Please train a model before proceeding.</p>
+    <p className="text-lg text-muted-foreground">
+      Please train a model before proceeding.
+    </p>
   </div>
 );
 
@@ -319,15 +351,18 @@ const SharePredictionApi = ({
   datasetId: string;
   inputs: any;
 }) => {
-  const encodedToken = btoa(unescape(encodeURIComponent(`uuid=${workspaceId}&did=${datasetId}`)));
+  const encodedToken = btoa(
+    unescape(encodeURIComponent(`uuid=${workspaceId}&did=${datasetId}`))
+  );
   const baseUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/p/api?t=${encodedToken}`;
 
   const initialInputs = inputs?.reduce(
     (acc, column) => ({
       ...acc,
-      [column.name]: column.type === 'datetime' || column.type === 'string' ? '' : 0,
+      [column.name]:
+        column.type === "datetime" || column.type === "string" ? "" : 0,
     }),
-    {},
+    {}
   );
 
   const curlCommand = `curl -X 'POST' \\
@@ -338,18 +373,20 @@ const SharePredictionApi = ({
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(curlCommand);
-    toast.success('Copied to clipboard!');
+    toast.success("Copied to clipboard!");
   };
 
   return (
-    <div className="p-4 rounded-lg mt-10 dark:border">
+    <div className="mt-4">
       <h3 className="text-lg font-semibold mb-2">Prediction API</h3>
-      <pre className="bg-slate-800/10 p-4 text-14 font-thin rounded overflow-x-auto">
+      <pre className="bg-slate-800/10 dark:bg-slate-600/20 p-4 text-14 font-thin rounded overflow-x-auto rounded-lg" style={{
+        scrollbarWidth:'none'
+      }}>
         {curlCommand}
       </pre>
       <div className="flex items-center justify-between mt-2">
-        <Button onClick={handleCopy} variant="outline" size='icon'>
-          <Copy size={16}/>
+        <Button onClick={handleCopy} variant="outline" size="icon">
+          <Copy size={16} />
         </Button>
       </div>
     </div>

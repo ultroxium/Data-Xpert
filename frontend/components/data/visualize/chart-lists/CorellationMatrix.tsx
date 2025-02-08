@@ -1,18 +1,23 @@
-import React from 'react';
-import ReactECharts from 'echarts-for-react';
+import React from "react";
+import ReactECharts from "echarts-for-react";
 
 interface CorellationMatrixChartProps {
   data: any;
   plotoption: string;
+  color?: string;
 }
 
-const CorellationMatrixChart: React.FC<CorellationMatrixChartProps> = ({ data, plotoption }) => {
+const CorellationMatrixChart: React.FC<CorellationMatrixChartProps> = ({
+  data,
+  plotoption,
+  color,
+}) => {
   const dataset = data?.dataList?.map(function (item) {
-    return [item[1], item[0], item[2] || '-'];
+    return [item[1], item[0], item[2] || "-"];
   });
   const option = {
     tooltip: {
-      position: 'top',
+      position: "top",
     },
     grid: {
       // left: '20%',
@@ -28,14 +33,14 @@ const CorellationMatrixChart: React.FC<CorellationMatrixChartProps> = ({ data, p
     },
 
     xAxis: {
-      type: 'category',
+      type: "category",
       data: data?.xLabel.map((str) => str),
       splitArea: {
         show: true,
       },
     },
     yAxis: {
-      type: 'category',
+      type: "category",
       data: data?.yLabel.map((str) => str),
       splitArea: {
         show: true,
@@ -45,17 +50,17 @@ const CorellationMatrixChart: React.FC<CorellationMatrixChartProps> = ({ data, p
       min: data?.min,
       max: data?.max,
       calculable: true,
-      orient: 'horizontal',
-      left: 'center',
-      bottom: '5%',
+      orient: "horizontal",
+      left: "center",
+      bottom: "5%",
       inRange: {
-        color: ['white','brown'],
+        color: ["white", color ? color : "brown"],
       },
     },
     series: [
       {
-        name: plotoption + '  Correlation Matrix',
-        type: 'heatmap',
+        name: plotoption + "  Correlation Matrix",
+        type: "heatmap",
         data: dataset,
         label: {
           show: true,
@@ -63,7 +68,7 @@ const CorellationMatrixChart: React.FC<CorellationMatrixChartProps> = ({ data, p
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
-            shadowColor: 'rgba(0, 0, 0, 0.5)',
+            shadowColor: "rgba(0, 0, 0, 0.5)",
           },
         },
       },

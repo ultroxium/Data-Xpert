@@ -224,3 +224,14 @@ def get_datasets(
     permission.check_view_access(workspace_id)
     datasets = services.get_all_datasets(workspace_id)
     return datasets
+
+@router.get("/{dataset_id}/is_trained")
+def is_trained(
+    workspace_id: int,
+    dataset_id: int,
+    services: Services = Depends(get_services),
+    permission: PermissionCheck = Depends(get_permission_check)
+):
+    permission.check_view_access(workspace_id)
+    return services.is_trained(workspace_id,dataset_id)
+

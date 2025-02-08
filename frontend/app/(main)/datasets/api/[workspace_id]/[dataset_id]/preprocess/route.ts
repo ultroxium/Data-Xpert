@@ -61,6 +61,19 @@ async function revertToOriginal(workspace_id: string, dataset_id: string) {
   );
 }
 
+//get is data already trained: 
+async function isDataTrained(workspace_id: string, dataset_id: string) {
+  const token = await getTokenFromCookies();
+  return axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/dataset/${dataset_id}/is_trained?workspace_id=${workspace_id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+}
+
 // GET handler
 export async function GET(
   req: Request,
@@ -87,6 +100,9 @@ export async function GET(
     }
     if (type === 'revert') {
       response = await revertToOriginal(workspace_id, dataset_id);
+    }
+    if (type === 'is_trained') {
+      response = await isDataTrained(workspace_id, dataset_id);
     }
 
     return NextResponse.json(response.data);

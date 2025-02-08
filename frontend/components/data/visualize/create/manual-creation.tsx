@@ -42,7 +42,6 @@ export function ManualChartCreation({
   const queryClient = useQueryClient();
 
   const chartDatasetType = localStorage.getItem("chartDatasetType");
-  console.log("chartDatasetType", chartDatasetType);
 
   const postChartsData = async (
     workspaceId: string,
@@ -133,7 +132,7 @@ export function ManualChartCreation({
             column: values.column,
             xAxis: values.xAxis,
             yAxis: values.yAxis,
-            dtype: localStorage.getItem("chartDatasetType"),
+            dtype: chartDatasetType,
           },
         });
       }}

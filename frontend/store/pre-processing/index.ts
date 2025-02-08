@@ -17,6 +17,12 @@ interface PreProcessState {
     isCorrelationLoading: boolean;
     setCorrelation: (data: any) => void;
     setCorrelationLoading: (loading: boolean) => void;
+
+    //is_trained
+    isTrained: boolean;
+    isTrainedLoading: boolean;
+    setIsTrained: (data: any) => void;
+    setIsTrainedLoading: (loading: boolean) => void;
     }
 
 
@@ -37,4 +43,11 @@ export const useProcessStoreNew = create<PreProcessState>((set) => ({
     isCorrelationLoading: false,
     setCorrelation: (data) => set({ correlationData: data }),
     setCorrelationLoading: (loading: boolean) => set({ isCorrelationLoading: loading }),
+
+    //is_trained
+    isTrained: false,
+    isTrainedLoading: false,
+    setIsTrained: (data) => set({ isTrained: data}),
+    setIsTrainedLoading: (loading: boolean) => set({ isTrainedLoading: loading }),
+    
 }));

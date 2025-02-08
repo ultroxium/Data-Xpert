@@ -73,6 +73,14 @@ export const autoProcess = async (workspaceId: string, datasetId: string) => {
   return response.data;
 };
 
+//is already trained
+export const isAlreadyTrained = async (workspaceId: string, datasetId: string) => {
+  const response = await axios.get(
+    `/datasets/api/${workspaceId}/${datasetId}/preprocess?type=is_trained`,
+  );
+  return response.data;
+};
+
 export const ProcessedData = ({
   workspaceId,
   datasetId,
@@ -80,7 +88,7 @@ export const ProcessedData = ({
   workspaceId: string;
   datasetId: string;
 }) => {
-  const { setDistributions, setDistributionsLoading,setCorrelation,setCorrelationLoading } = useProcessStoreNew();
+  const { setDistributions, setDistributionsLoading,setCorrelation,setCorrelationLoading, setIsTrained ,setIsTrainedLoading} = useProcessStoreNew();
 
   // distribution data
   const {
@@ -115,6 +123,24 @@ export const ProcessedData = ({
       setCorrelation(Correlation);
     }
   }, [CorrelationLoading, setCorrelationLoading, setCorrelation, Correlation]);
+
+
+  // is trained data
+  const {
+    data: isTrainedData,
+    isLoading: isTrainedLoading,
+    error: isTrainedError,
+  } = useQuery({
+    queryKey: ['is_trained', workspaceId, datasetId],
+    queryFn: () => isAlreadyTrained(workspaceId, datasetId),
+  });  
+
+  useEffect(() => {
+    setIsTrainedLoading(isTrainedLoading);
+    if (isTrainedData) {
+      setIsTrained(isTrainedData.STATUS==="TRAINED");
+    }
+  }, [isTrainedLoading, setIsTrainedLoading, setIsTrained, isTrainedData]);
 
   return null;
 };

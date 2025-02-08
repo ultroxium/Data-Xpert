@@ -151,6 +151,17 @@ class Services:
             if chart.dtype == "PROCESSED":
                 df = self.b2_filemanager.read_file(processed_data_path, 'csv')
 
+            if chart.dtype == "PROCESSED":
+                if chart.column and chart.column not in df.columns:
+                    chart.is_deleted = True
+                    self.db.commit()
+                    continue
+                if (chart.xAxis or chart.yAxis) and not all(col in df.columns for col in list(chart.xAxis) + list(chart.yAxis)):
+                    chart.is_deleted = True
+                    self.db.commit()
+                    continue
+
+
             column = chart.column
             xAxis = chart.xAxis
             yAxis = chart.yAxis
@@ -238,7 +249,7 @@ class Services:
                                 "error": f"Something went wrong, try again later. error {e}",
                             }
                         )
-                        break
+                        continue
 
                 elif chart.key in ["pie", "doughnut", "customized_pie"]:
                     if chart.option == "count":
@@ -327,7 +338,7 @@ class Services:
                                 "error": "Invalid plot option selected.",
                             }
                         )
-                        break
+                        continue
                     xLabel = grouped_df[x_values].tolist()
                     yLabel = grouped_df[y_values].tolist()
 
@@ -383,7 +394,7 @@ class Services:
                                 "error": "Both x and y values must be numerical in scatter plot.",
                             }
                         )
-                        break
+                        continue
 
                     # Ensure both x and y have the same length
                     if len(df[x_values]) == len(df[y_values]):
@@ -396,7 +407,7 @@ class Services:
                                 "error": "Mismatch in length of x and y values. To scatter plots, use equal length of x and y values.",
                             }
                         )
-                        break
+                        continue
 
                     final_chart.append(
                         {
@@ -433,7 +444,7 @@ class Services:
                                 "error": "Y values must be numerical in scatter plot.",
                             }
                         )
-                        break
+                        continue
 
                     if chart.option == "average":
                         avg = df.groupby(x_values,observed=False)[y_values].mean().reset_index()
@@ -504,7 +515,7 @@ class Services:
                                 "error": "All Y values must be numerical for heatmap.",
                             }
                         )
-                        break
+                        continue
 
                     heatmap_data = []
                     for i, y_value in enumerate(y_values):
@@ -554,7 +565,7 @@ class Services:
                                     "error": "Invalid plot option selected.",
                                 }
                             )
-                            break
+                            continue
 
                     xLabel = df[x_values].unique().tolist()
                     yLabel = y_values
@@ -609,7 +620,7 @@ class Services:
                             "error": "All Y values must be numerical for Stacked Line.",
                         }
                     )
-                    break
+                    continue
 
                 stacked_line_data = []
                 for i, y_value in enumerate(y_values):
@@ -665,7 +676,7 @@ class Services:
                                 "error": "Invalid plot option selected.",
                             }
                         )
-                        break
+                        continue
                     
                 xLabel = df[x_values].unique().tolist()
                 yLabel = y_values
@@ -717,7 +728,7 @@ class Services:
                             "error": "Invalid plot option selected.",
                         }
                     )
-                    break
+                    continue
 
                 # Handle NaN or infinite values
                 rounded_matrix = correlation_matrix.round(2)

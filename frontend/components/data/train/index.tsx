@@ -1,34 +1,33 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { ErrorMessage, Form, Formik } from 'formik';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { ChevronLeft, Info, Loader2, LoaderCircle, WandSparkles } from 'lucide-react';
 
 
 import { ClassificationReport } from './utils/classification-report';
 import RegressionReport from './utils/regression-report';
 
-import { deleteModel, TrainedModelData, trainModel, trainAutoML } from './model-list';
-import SuggestionsDisplay from './utils/suggestions';
-import { useDatasetStoreNew } from '@/store/datasets';
-import { useTrainStoreNew } from '@/store/train';
-import MultiSelector from '@/components/common/MultiSelector';
 import AlertBox from '@/components/common/AlertBox';
 import { ConfirmationAlert } from '@/components/common/confirmation-alert';
-import { cn } from '@/lib/utils';
+import MultiSelector from '@/components/common/MultiSelector';
 import { Colors } from '@/constant/color';
+import { cn } from '@/lib/utils';
+import { useDatasetStoreNew } from '@/store/datasets';
+import { useTrainStoreNew } from '@/store/train';
+import { deleteModel, trainAutoML, TrainedModelData, trainModel } from './model-list';
+import SuggestionsDisplay from './utils/suggestions';
 
 const CLASSIFICATION_MODELS = [
   'random_forest_classifier',
@@ -340,7 +339,7 @@ export default function TrainPage({
                             <div className="w-full">
                               <Label htmlFor="ignore_columns">Exclude Columns</Label>
                               <MultiSelector
-                                options={columnDetails
+                                options={columnDetails?.processed
                                   ?.filter((c) => c.name !== values.target_column)
                                   ?.map((col: any) => col.name)}
                                 isMultiple={true}
@@ -352,7 +351,7 @@ export default function TrainPage({
                             <div className="w-full">
                               <Label htmlFor="target_column">Set Target Column</Label>
                               <MultiSelector
-                                options={columnDetails?.map((col: any) => col.name)}
+                                options={columnDetails?.processed?.map((col: any) => col.name)}
                                 isMultiple={false}
                                 onSelected={(values) => {
                                   setFieldValue('target_column', values[0]);

@@ -1,24 +1,17 @@
 'use client';
 // import { PresetShare } from '@/components/share-preview/share';
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 import { Skeleton } from '@/components/ui/skeleton';
 
+import { PresetShare } from '@/components/preview/share';
 import { useChartsStoreNew } from '@/store/charts';
 import { useDatasetStoreNew } from '@/store/datasets';
 import {
-  LayoutDashboard,
-  LoaderCircle,
-  Plus,
   Search
 } from 'lucide-react';
 import React, { Suspense, useEffect, useState } from 'react';
 import { ChartCreateRightBar } from './chart-create-sidebar';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { ChartBuilderAI } from './chart-builder-ai';
-import { BeautifulChartRibbon } from './charts-config';
-import { PresetShare } from '@/components/preview/share';
 
 
 const PreviewCharts = React.lazy(() => import('./PreviewCharts'));
