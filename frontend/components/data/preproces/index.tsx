@@ -148,7 +148,7 @@ const FeatureEngineeringPage = ({
                 <div className="w-full">
                   <h4 className="font-semibold">Select Columns</h4>
                   <MultiSelector
-                    options={columnDetails?.unprocessed?.map((col: any) => col.name)}
+                    options={columnDetails?.processed?.map((col: any) => col.name)}
                     isMultiple={true}
                     isSelectAll={true}
                     onSelected={(values) => {
@@ -174,7 +174,7 @@ const FeatureEngineeringPage = ({
             </div>
           )}
 
-          {!isColumnsSelected && columnDetails?.unprocessed?.find((col: any) => col.type === 'string') && (
+          {!isColumnsSelected && columnDetails?.processed?.find((col: any) => col.type === 'string') && (
             <CommonConfirmationAlert
               component={
                 <Button variant="ghost" size="icon" className="rounded-full p-0 m-0">
