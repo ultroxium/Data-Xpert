@@ -82,7 +82,7 @@ const WorkspaceSwitcher = ({
             role="combobox"
             aria-expanded={open}
             aria-label="Select a workspace"
-            className={cn('min-w-[200px] w-full justify-between')}>
+            className={cn('min-w-[200px] w-full justify-between step-2')}>
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
                 src={`https://avatar.vercel.sh/abc.png`}

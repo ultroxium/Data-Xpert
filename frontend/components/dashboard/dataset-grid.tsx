@@ -32,7 +32,7 @@ export const DatasetGrid: React.FC<DatasetGridProps> = ({
   moveDatasetMutation 
 }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full step-4">
       {datasets.map((file, index) => (
         <Card key={file.id} className="flex flex-col justify-between shadow-none bg-gray-50 dark:bg-slate-800/10">
           <CardContent className="pt-4">
@@ -52,7 +52,7 @@ export const DatasetGrid: React.FC<DatasetGridProps> = ({
             </div>
           </CardContent>
           <CardFooter className="justify-between items-center">
-            <Button variant="outline" size="sm" asChild>
+            <Button variant="outline" size="sm" asChild className={`${index === 0 ? 'step-7' : ''}`}>
               <Link href={`/datasets/${file.workspace_id}/${file.id}?tab=overview`}>
                 View Details
               </Link>

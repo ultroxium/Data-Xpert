@@ -2,13 +2,13 @@
 
 import FetchUploader from './upload-api';
 
-import {Dialog,
-DialogContent,
-DialogDescription,
-DialogFooter,
-DialogHeader,
-DialogTitle,
-DialogTrigger,
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
 } from "@/components/ui/dialog";
 
 interface UploadDatasetDialogProps {
@@ -19,7 +19,7 @@ export default function UploadDatasetDialog({ wid }: UploadDatasetDialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <span className='underline underline-offset-4 hover:text-muted-foreground cursor-pointer'>Fetch from API</span>
+        <span className='underline underline-offset-4 hover:text-muted-foreground cursor-pointer step-6'>Fetch from API</span>
       </DialogTrigger>
       <DialogContent className='p-8'>
       <DialogHeader>

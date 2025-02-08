@@ -13,7 +13,7 @@ export default function FileUploadProgress({ uploadedFiles, totalFiles, isLoadin
   const progress = (uploadedFiles / totalFiles) * 100
 
   return (
-    <Card className="w-full max-w-md mx-auto shadow-none">
+    <Card className="w-full max-w-md mx-auto shadow-none step-3">
       <CardContent className="pt-6">
         <div className="space-y-4">
           <div className="flex items-center justify-between">

@@ -1,7 +1,6 @@
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { constructMetadata } from '@/lib/metadata';
 
-
 export const metadata = constructMetadata({
   title: 'DataXpert | Workspace',
   description:

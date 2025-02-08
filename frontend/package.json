@@ -63,7 +63,7 @@
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.54.2",
-    "react-joyride": "^2.9.3",
+    "react-joyride": "^2.5.5",
     "react-resizable-panels": "^2.1.7",
     "react-slick": "^0.30.3",
     "recharts": "^2.15.0",

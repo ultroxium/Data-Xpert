@@ -1,16 +1,14 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { useFormik } from 'formik';
 import { LoaderCircle, UploadCloud, X } from 'lucide-react';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import * as Yup from 'yup';
 
-import { useDropzone } from 'react-dropzone';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { useDropzone } from 'react-dropzone';
 import { toast } from 'sonner';
 import UploadDatasetDialog from './uploadDataDialogue';
 
@@ -104,7 +102,7 @@ const CSVUploader = ({ wid }: UploadDatasetDialogProps) => {
           {...getRootProps()}
           className={`flex flex-col items-center hover:border-primary justify-center w-64 p-8 text-center border-2 border-dashed rounded-lg cursor-pointer transition-colors mb-4 ${
             isDragActive ? 'border-primary bg-primary/10' : 'border-muted-foreground/25'
-          }`}>
+          } step-5`}>
           <input {...getInputProps()} />
           {formik.values.file ? (
             <div className="flex items-center space-x-2">
