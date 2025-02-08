@@ -6,6 +6,7 @@ from app.api.feature_engineering.model import ProcessedDataModel
 from app.api.datasets.model import DatasetModel
 from app.Helper.B2fileManager import B2FileManager
 from app.api.auth.model import UserModel
+import numpy as np
 
 def create_default_dataset(db: Session, user: UserModel, workspace: WorkspaceModel):
     """Creates a default dataset for new users in their Default Workspace."""
@@ -23,16 +24,34 @@ def create_default_dataset(db: Session, user: UserModel, workspace: WorkspaceMod
     if existing_dataset:
         return  # Avoid duplicate dataset creation
 
-    # Create a sample DataFrame
-    sample_data = pd.DataFrame({
-        "Name": ["Alice", "Bob", "Charlie"],
-        "Age": [25, 30, 22],
-        "City": ["New York", "San Francisco", "Chicago"]
-    })
+    np.random.seed(42)
+
+    # Define the number of sample transactions
+    num_transactions = 50
+
+    # Create a sample data dictionary
+    data = {
+        "Transaction ID": [f"T{1000+i}" for i in range(num_transactions)],
+        "Date": pd.to_datetime("2025-01-01") + pd.to_timedelta(np.random.randint(0, 30, size=num_transactions), unit="D"),
+        "Store": np.random.choice(["Store A", "Store B", "Store C"], size=num_transactions),
+        "Product": np.random.choice(["Laptop", "Tablet", "Smartphone", "Accessory"], size=num_transactions),
+        "Quantity": np.random.randint(1, 5, size=num_transactions),
+        "Unit Price": np.round(np.random.uniform(100, 2000, size=num_transactions), 2),
+        "Discount (%)": np.random.choice([0, 5, 10, 15, 20], size=num_transactions)
+    }
+
+    # Create the DataFrame
+    sales_df = pd.DataFrame(data)
+
+    # Calculate Revenue after discount
+    sales_df["Revenue"] = sales_df["Quantity"] * sales_df["Unit Price"] * (1 - sales_df["Discount (%)"] / 100)
+
+    # Sort the DataFrame by Date for a chronological view
+    sales_df.sort_values("Date", inplace=True)
 
     # Save dataset to in-memory CSV file
     csv_buffer = BytesIO()
-    sample_data.to_csv(csv_buffer, index=False)
+    sales_df.to_csv(csv_buffer, index=False)
     csv_buffer.seek(0)
 
     # Define storage path
@@ -40,7 +59,7 @@ def create_default_dataset(db: Session, user: UserModel, workspace: WorkspaceMod
 
     # Upload to B2 storage
     b2_filemanager = B2FileManager()
-    b2_filemanager.write_file(sample_data, data_path, "csv")
+    b2_filemanager.write_file(sales_df, data_path, "csv")
 
     # Create dataset record in the database
     new_dataset = DatasetModel(
@@ -57,7 +76,7 @@ def create_default_dataset(db: Session, user: UserModel, workspace: WorkspaceMod
 
     # Process and save cleaned data version
     processed_data_path = f"{user.id}/{workspace.name}/datasets/{new_dataset.id}/{dataset_name}.csv"
-    b2_filemanager.write_file(sample_data, processed_data_path, "csv")
+    b2_filemanager.write_file(sales_df, processed_data_path, "csv")
 
     cleaned_data = ProcessedDataModel(
         dataset_id=new_dataset.id,
@@ -67,3 +86,4 @@ def create_default_dataset(db: Session, user: UserModel, workspace: WorkspaceMod
 
     db.add(cleaned_data)
     db.commit()
+

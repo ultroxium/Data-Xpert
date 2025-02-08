@@ -11,6 +11,7 @@ from app.database.database import get_db
 from sqlalchemy.orm import Session
 from app.api.auth.model import UserModel
 from datetime import datetime, timedelta
+from app.utils.create_default_data import create_default_dataset
 
 router = APIRouter(
     prefix="/auth",
@@ -100,6 +101,10 @@ async def github_callback(request: Request, db: Session = Depends(get_db)):
         )
         db.add(new_workspace)
         db.commit()
+        db.refresh(new_workspace)
+
+        create_default_dataset(db, user, new_workspace)
+
 
     # Generate access token
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
