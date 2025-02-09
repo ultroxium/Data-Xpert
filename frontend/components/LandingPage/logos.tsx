@@ -3,6 +3,7 @@ import Image from "next/image";
 export default function LogoMarquee() {
   const logos = [
     { src: "/logos/next.svg", alt: "Next.js", fit: "contain" },
+    { src: "/logos/shadcn.svg", alt: "React", fit: "contain" },
     { src: "/logos/tailwindcss.svg", alt: "Tailwind CSS", fit: "cover" },
     { src: "/logos/typescripts.svg", alt: "TypeScript", fit: "cover" },
     { src: "/logos/vercel.svg", alt: "Vercel", fit: "contain" },

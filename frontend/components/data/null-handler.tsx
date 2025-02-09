@@ -117,6 +117,7 @@ export default function NullHandler({
                     <SelectItem value="median">Fill with Median</SelectItem>
                     <SelectItem value="most_occurred">Fill with Most Frequent Value</SelectItem>
                     <SelectItem value="drop">Remove Rows with Missing Values</SelectItem>
+                    <SelectItem value="zero">Fill with Zero</SelectItem>
                   </SelectContent>
                 </Select>
                 {formik.touched.missingValueOption && formik.errors.missingValueOption ? (

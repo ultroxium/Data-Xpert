@@ -707,6 +707,8 @@ class Services:
                 df[column].fillna(df[column].mode()[0], inplace=True)
         elif handleType == "drop":
             df.dropna(inplace=True)
+        elif handleType == "zero":
+            df.fillna(0, inplace=True)
         else:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
