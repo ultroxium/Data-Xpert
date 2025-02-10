@@ -150,8 +150,6 @@ class Services:
 
             if chart.dtype == "PROCESSED":
                 df = self.b2_filemanager.read_file(processed_data_path, 'csv')
-
-            if chart.dtype == "PROCESSED":
                 if chart.column and chart.column not in df.columns:
                     chart.is_deleted = True
                     self.db.commit()

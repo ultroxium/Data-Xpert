@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     GITHUB_CLIENT_SECRET: str=os.getenv("GITHUB_CLIENT_SECRET")
     GITHUB_REDIRECT_URI: str=os.getenv("GITHUB_REDIRECT_URI")
 
+    USE_B2: bool = os.getenv("USE_B2")
     class Config:
         env_file = ".env"
 

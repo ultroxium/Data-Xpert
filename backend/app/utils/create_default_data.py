@@ -6,6 +6,8 @@ from app.api.feature_engineering.model import ProcessedDataModel
 from app.api.datasets.model import DatasetModel
 from app.Helper.B2fileManager import B2FileManager
 from app.api.auth.model import UserModel
+from sqlalchemy.orm import aliased,joinedload
+
 import numpy as np
 
 def create_default_dataset(db: Session, user: UserModel, workspace: WorkspaceModel):
@@ -55,7 +57,7 @@ def create_default_dataset(db: Session, user: UserModel, workspace: WorkspaceMod
     csv_buffer.seek(0)
 
     # Define storage path
-    data_path = f"{user.id}/{workspace.name}/datasets/{dataset_name}.csv"
+    data_path = f"{user.id}/{workspace.name}/datasets/{dataset_name}"
 
     # Upload to B2 storage
     b2_filemanager = B2FileManager()
@@ -74,8 +76,11 @@ def create_default_dataset(db: Session, user: UserModel, workspace: WorkspaceMod
     db.commit()
     db.refresh(new_dataset)
 
+    created_dataset = db.query(DatasetModel).options(joinedload(DatasetModel.creator)).filter(DatasetModel.id == new_dataset.id).one_or_none()
+    b2_filemanager.read_file(created_dataset.data, 'csv')
+
     # Process and save cleaned data version
-    processed_data_path = f"{user.id}/{workspace.name}/datasets/{new_dataset.id}/{dataset_name}.csv"
+    processed_data_path = f"{user.id}/{workspace.name}/datasets/{created_dataset.id}/{dataset_name}"
     b2_filemanager.write_file(sales_df, processed_data_path, "csv")
 
     cleaned_data = ProcessedDataModel(
